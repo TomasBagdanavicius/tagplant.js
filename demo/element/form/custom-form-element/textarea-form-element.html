@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Textarea Form Element - Custom Form Element</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">A custom form element that represents a textarea input element.</div>
+<form method="get" action="" id="form1">
+    <textarea-form-element
+        name="foo"
+        id="form-element"
+        controlsmenu="toggle"
+        controlsfilter="none"
+        label="Text Element"
+        description="Lorem ipsum dolor sit amet."
+        value="Hello World!"
+        maxlength="20"
+    ></text-form-element>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { CustomFormElement } from "../../../../src/element/form/custom-form-element.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const formElement = document.getElementById("form-element");
+console.log(formElement);
+formElement.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

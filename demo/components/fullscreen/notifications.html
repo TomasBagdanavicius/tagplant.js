@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Notifications - Fullscreen</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Sends out notifications when fullscreen mode is changed.</div>
+<fullscreen-toggler>Toggle Root Fullscreen Mode</fullscreen-toggler>
+<script type="module">
+
+import { fullscreen } from "../../../src/components/fullscreen.js";
+import { siteNotificationsEl } from "../../helpers/site-notifications.js";
+
+fullscreen.enableNotifications();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

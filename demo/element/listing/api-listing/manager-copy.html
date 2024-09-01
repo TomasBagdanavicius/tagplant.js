@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Manager Copy - API - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<script type="module">
+
+import { ApiListing } from "../../../../src/element/listing/api-listing.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const endpointURL = new URL(userPaths.apiListingEndpoint);
+endpointURL.searchParams.set("limit", 2);
+const listing = new ApiListing("API Listing", endpointURL, {
+    // options
+});
+listing.appendToBody();
+listing.element.setAttribute("data-format", "chunks");
+
+const managerButton = listing.releaseCopyManagerLaunchButton();
+listing.header.append(managerButton);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

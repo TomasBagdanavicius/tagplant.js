@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Notifications - Color Mode</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Sends out notifications when color mode is changed.</div>
+<script type="module">
+
+import { colorMode } from "../../../src/components/color-mode.js";
+import { siteNotificationsEl } from "../../helpers/site-notifications.js";
+import * as module from "../../helpers/color-mode-notifications.js";
+
+colorMode.releaseMenu().appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

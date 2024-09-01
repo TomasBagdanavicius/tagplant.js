@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Clock Feature</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates the clock component accompanied by main clock controls.</div>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { clockFeature } from "../../../src/components/clock-feature.js";
+import { Menu } from "../../../src/element/menu.js";
+import { userPaths } from "../../../var/paths.js";
+
+const clockContainer = createElement("p", { id: "clock-container" });
+clockFeature.applyStoreController();
+clockFeature.releaseElement({
+    host: clockContainer,
+    attach(elem) {
+        this.host.append(elem);
+    },
+    remove() {
+        this.host.children[0].remove();
+    }
+});
+const visibilityControl = clockFeature.releaseVisibilityControl();
+const formatMenu = clockFeature.releaseFormatMenu({ type: Menu.types.toggle, selectValue: true });
+let formatText = clockFeature.formatWithSampleDate(await clockFeature.getFormat());
+formatMenu.headingText = formatText;
+document.body.append(clockContainer, createElement("p", { elems: [visibilityControl] }), formatMenu.element);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

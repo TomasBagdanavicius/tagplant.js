@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Article</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Uses the Article component to programmatically build a simple article.</div>
+<script type="module">
+
+import { headingLevels } from "../../../src/core/functions/enumeration.js";
+import { Article } from "../../../src/element/article.js";
+
+const article = new Article("Hello World!", { headingLevel: headingLevels.one, includeStory: true });
+article.appendToBody();
+const elem = document.createElement("p");
+elem.textContent = "Lorem ipsum dolor sit amet";
+article.insertIntoStory(elem);
+
+setTimeout(() => {
+    article.addFooter();
+    article.changeTitle("Hi there!");
+}, 2_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

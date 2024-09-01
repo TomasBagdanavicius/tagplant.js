@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Prepend to Body - Image Preview</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="demo-description">Embeds an image in the designated area by clicking the "Upload" button and using the file picker, or by dragging a picture onto the preview area. If image format or size is incorrect, error will be thrown into the console.</div>
+<script type="module">
+
+import { bodyArea } from "../../helpers/body-area.js";
+import { ImagePreview } from "../../../src/element/image-preview.js";
+
+const imagePreview = new ImagePreview;
+imagePreview.appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

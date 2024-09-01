@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Delete Entries Messages - Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Customizes variants of the delete confirmation messages, e.g., for a single or multiple items, upon success or failure.</div>
+<script type="module">
+
+import { ArrayStoreManager } from "../../../../src/core/store/array-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+import { items } from "../items-long.js";
+
+const store = new ArrayStoreManager(items);
+const listing = new StoreListing(store, "Store Listing", {
+    format: "chunks",
+    searchable: true,
+    keyAsDataId: true,
+    searchParams: {
+        perPage: 5
+    },
+    createMenuForEachItem: true,
+    selectItems: true,
+    itemBindings: ({ item, controls: { select, deleteController, releaseMenu } }) => {
+        item.prepend(select);
+        releaseMenu().appendTo(item);
+    },
+    deleteEntriesMessages: {
+        confirm: {
+            one: data => {
+                console.log("Confirm one", data);
+                return `[Custom] Do you really want to delete entry?`;
+            },
+            many: data => {
+                console.log("Confirm many", data);
+                return `[Custom] Do you really want to delete ${data.count} entries?`;
+            }
+        },
+        complete: {
+            done: {
+                one: data => {
+                    console.log("Done one", data);
+                    return "[Custom] 1 entry deleted";
+                },
+                many: data => {
+                    console.log("Done many", data);
+                    return "[Custom] Many entries deleted";
+                },
+            },
+            error: {
+                fail: data => {
+                    console.log("Fail", data);
+                    return "[Custom] Could not delete";
+                },
+                mixed: data => {
+                    console.log("Mixed", data);
+                    const { errorCount, count } = data;
+                    if (errorCount === count) {
+                        return `[Custom] Failed to delete ${count} entries`;
+                    } else {
+                        return `[Custom] ${errorCount} out of ${count} entries could not be deleted`;
+                    }
+                },
+            }
+        }
+    }
+});
+document.body.append(listing.element);
+const controlsMenu = listing.releaseControlsMenu({ includeDeleteSelected: true });
+controlsMenu.appendTo(listing.footer);
+
+/* Events */
+
+listing.addEventListener("entriesdeleted", e => {
+    console.log("entriesdeleted", e.detail);
+});
+listing.addEventListener("entriesdeleteerror", e => {
+    console.log("entriesdeleteerror", e.detail);
+});
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

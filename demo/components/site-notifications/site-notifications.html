@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Site Notifications</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates a few site notifications that pop up one after another.</div>
+<script type="module">
+
+import { NotificationsCenter } from "../../../src/components/site-notifications.js";
+
+const notificationsCenter = new NotificationsCenter;
+notificationsCenter.appendToBody({
+    cancelOnClick: true,
+    includeDeleteButton: false,
+    id: "site-notifications",
+    includeControls: false,
+});
+notificationsCenter.sendText("Hello World!");
+setTimeout(() => {
+    notificationsCenter.sendText("This is only a test");
+}, 1_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

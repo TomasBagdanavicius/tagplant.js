@@ -1,0 +1,9 @@
+{
+    "status": 1,
+    "message": "Message has been sent!",
+    "presentation": "article",
+    "title": "Message Sent",
+    "endpoints": {
+        "home": "./home.html"
+    }
+}

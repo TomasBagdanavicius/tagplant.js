@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Chunks - Group</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Builds a group of items using the chunks member builder, which wraps each element in the item into a container.</div>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { Group } from "../../../src/element/group.js";
+
+const group = new Group({ memberBuilder: Group.chunkBuilder });
+group.append({
+    one: "one",
+    two: "two",
+    three: "three",
+    four: "four",
+    five: "five",
+});
+group.append({
+    one: "eins",
+    two: "zwei",
+    three: "drei",
+    four: "vier",
+    five: "fünf",
+});
+group.append({
+    one: "uno",
+    two: "dos",
+    three: "tres",
+    four: "cuatro",
+    five: "cinco",
+});
+group.appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

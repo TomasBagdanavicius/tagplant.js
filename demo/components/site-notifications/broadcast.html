@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Broadcast - Site Notifications</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Duplicate this tab to view broadcasted notification in another context.</div>
+<script type="module">
+
+import { createSimpleButton } from "../../../src/core/functions/node.js";
+import { SVGCodeToBlob } from "../../../src/core/functions/misc.js";
+import { NotificationsCenter } from "../../../src/components/site-notifications.js";
+import { starSVG, repaintStarSVGToWhite } from "../../helpers/helpers.js";
+
+const notificationsCenter = new NotificationsCenter({ broadcastChannelName: "notificationsCenter_test" });
+notificationsCenter.appendToBody({
+    cancelOnClick: false,
+    includeDeleteButton: false,
+    includeControls: false,
+    id: "site-notifications"
+});
+
+/* Catching broadcasted messages */
+notificationsCenter.addEventListener("broadcasted", e => {
+    console.log(e);
+});
+
+const button = createSimpleButton("Send Notification");
+button.addEventListener("click", () => {
+    const iconURL = URL.createObjectURL(SVGCodeToBlob(repaintStarSVGToWhite()));
+    notificationsCenter.sendParams("Hello World!", { title: "Hey!", iconURL, type: "normal", broadcast: true });
+});
+document.body.append(button);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

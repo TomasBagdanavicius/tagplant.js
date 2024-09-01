@@ -1,0 +1,29 @@
+{
+    "status": 1,
+    "data": {
+        "name": {
+            "type": "string",
+            "min": 3,
+            "max": 255,
+            "required": true,
+            "allow_empty": false,
+            "title": "Name",
+            "description": "Full name."
+        },
+        "subject": {
+            "type": "string",
+            "min": 8,
+            "max": 100,
+            "title": "Subject",
+            "required": true,
+            "description": "Subject line."
+        }
+    },
+    "presentation": "form",
+    "title": "Simple Form",
+    "request": {
+        "url": "http:\/\/localhost\/toolkit\/request.php",
+        "title": "Submit"
+    },
+    "request_method": "post"
+}

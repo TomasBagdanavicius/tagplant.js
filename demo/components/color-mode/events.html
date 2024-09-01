@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Events - Color Mode</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates listener events that you can hook into programatically.</div>
+<script type="module">
+
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { colorMode } from "../../../src/components/color-mode.js";
+
+colorMode.releaseMenu().appendToBody();
+document.body.append(createElement("div", { id: "output" }));
+
+const outputElement = document.getElementById("output");
+addEventListener("osthemechange", e => {
+    const { theme } = e.detail;
+    console.log("OS theme change", theme);
+    outputElement.append(createElement("div", { text: `OS theme change ${theme}` }));
+});
+document.addEventListener("colormodechange", e => {
+    const { newColorMode, oldColorMode } = e.detail;
+    console.log("Color mode change", newColorMode, oldColorMode);
+    outputElement.append(createElement("div", { text: `Color mode change: ${newColorMode.value}, old: ${oldColorMode.value}` }));
+});
+document.addEventListener("themechange", e => {
+    const { newTheme, oldTheme } = e.detail;
+    console.log("Theme change", newTheme, oldTheme);
+    outputElement.append(createElement("div", { text: `Theme change: ${newTheme.value}, old: ${oldTheme.value}` }));
+});
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

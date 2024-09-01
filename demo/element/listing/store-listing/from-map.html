@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>From Map - Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Builds the listing from a map object. Allows to have item keys.</div>
+<script type="module">
+
+import { MapStoreManager } from "../../../../src/core/store/map-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+import { PagedListing } from "../../../../src/element/listing/extensions/paged-listing.js";
+import { Group } from "../../../../src/element/group.js";
+
+const map = new Map;
+map.set(1, "One");
+map.set(2, "Two");
+map.set(3, "Three");
+map.set(4, "Four");
+map.set(5, "Five");
+map.set(6, "Six");
+map.set(7, "Seven");
+map.set(8, "Eight");
+map.set(9, "Nine");
+map.set(10, "Ten");
+
+const groupMemberBuilder = Group.defaultMemberBuilder;
+groupMemberBuilder.textElementWrapper = "div";
+const store = new MapStoreManager(map);
+const listing = new StoreListing(store, "Store Listing", {
+    searchable: true,
+    keyAsDataId: true,
+    searchParams: {
+        perPage: 10
+    },
+    perPageValues: [10, 25, 50, 100],
+    paging: PagedListing.pagingMethods.regular,
+    useURLQuery: true,
+    groupMemberBuilder: groupMemberBuilder,
+});
+document.body.append(listing.element);
+
+const orderMenu = listing.createControlBySearchParam("order");
+orderMenu?.appendTo(listing.footer);
+const sortMenu = listing.createControlBySearchParam("sort");
+sortMenu?.appendTo(listing.footer);
+const perPageMenu = listing.releasePerPageMenu();
+perPageMenu?.appendTo(listing.footer);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

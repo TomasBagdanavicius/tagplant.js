@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Item Actions - API - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<script type="module">
+
+import { createElement, valueToElement } from "../../../../src/core/functions/node.js";
+import { ApiListing } from "../../../../src/element/listing/api-listing.js";
+import { Group } from "../../../../src/element/group.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const endpointURL = new URL(userPaths.apiListingEndpoint);
+endpointURL.searchParams.set("limit", 2);
+const listing = new ApiListing("API Listing", endpointURL, {
+    groupMemberBuilder: Group.chunkBuilder,
+    itemBindings: ({ item, key, element, controls: { releaseMenu } }) => {
+        releaseMenu({ type: "navigation" }).appendTo(item);
+        const titleBlock = item.querySelector(`[data-name="title"]`);
+        // Replace with visit hyperlink
+        if (titleBlock) {
+            const originalContent = titleBlock.innerHTML;
+            const visitHyperlink = listing.createVisitHyperlink(key, element, { content: originalContent });
+            titleBlock.replaceChildren(visitHyperlink);
+        }
+    },
+    createMenuForEachItem: true,
+    onVisit: ({ key, element, event }) => {
+        event.preventDefault();
+        console.log("Visit", element);
+    },
+});
+listing.appendToBody();
+listing.element.setAttribute("data-format", "chunks");
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

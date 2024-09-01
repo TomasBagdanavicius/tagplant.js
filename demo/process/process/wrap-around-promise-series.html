@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Wrap Around Promise Series - Process</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Creates and wraps a new process around a series of promises.</div>
+<script type="module">
+
+import { Process } from "../../../src/process/process.js";
+import { PromiseSeriesAbortException } from "../../../src/core/exceptions.js";
+import { sleep } from "../../../src/core/functions/misc.js";
+
+const tasks = [
+    (values, signal) => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve("hello");
+            }, 3_000);
+        });
+    },
+    (values, signal) => {
+        console.log(values);
+        return sleep(2_000);
+    }
+];
+
+const abortController = new AbortController;
+const [process, promise] = Process.wrapAroundPromiseSeries(tasks, ["test", "Test", { handle: abortController }]);
+document.body.append(process.toElement());
+promise.then(() => {
+    console.log("Promise fulfilled");
+}).catch(error => {
+    console.log(error);
+    if (error instanceof PromiseSeriesAbortException) {
+        console.log("Promise series abort");
+    }
+});
+const infoToggler = process.createInfoToggler();
+document.body.append(infoToggler);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Listing Chunks - Site Notifications</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Displays a full list of past and present notifications.</div>
+<script type="module">
+
+import { createSimpleButton } from "../../../src/core/functions/node.js";
+import { generateRandomString } from "../../../src/core/functions/string.js";
+import { NotificationsCenter, SiteNotification } from "../../../src/components/site-notifications.js";
+
+const button = createSimpleButton("Send Notification");
+button.addEventListener("click", () => {
+    notificationsCenter.sendParams(`${generateRandomString(10, { specialChars: false })}`, { title: "Hallo!", durationActive: 10_000 });
+});
+document.body.append(button);
+
+const notificationsCenter = new NotificationsCenter();
+/* Archive Element */
+const archiveListing = notificationsCenter.releaseListing({ hideOnCancel: false, customOptions: {
+    format: "chunks",
+    includeHead: true,
+    chunkNames: SiteNotification.chunkNames,
+    sortValues: SiteNotification.sortValues,
+} });
+archiveListing.appendToBody();
+/* Regular */
+notificationsCenter.appendToBody({ cancelOnClick: false, includeDeleteButton: false, includeControls: false, id: "site-notifications" });
+notificationsCenter.sendParams("Hello World!", { title: "Hey!" });
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

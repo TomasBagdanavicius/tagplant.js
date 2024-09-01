@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Download and Upload - Image Preview</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="demo-description">Automatically downloads an image from an external source and previews it in the designated area. As the image is set into the preview area, it will also be uploaded to a chosen location.</div>
+<script type="module">
+
+import { bodyArea } from "../../helpers/body-area.js";
+import { ImagePreview } from "../../../src/element/image-preview.js";
+import { siteNotificationsEl } from "../../helpers/site-notifications.js";
+import { userPaths } from "../../../var/paths.js";
+
+const downloadURL = `${userPaths.project}demo/material/images/1000x1000_Earth.jpg`;
+const uploadURL = `${userPaths.project}demo/api/upload.php`;
+const imagePreview = ImagePreview.withFileDownloadAndUpload(downloadURL, uploadURL);
+imagePreview.appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

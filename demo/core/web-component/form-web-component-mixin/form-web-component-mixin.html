@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Form Web Component</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo.css">
+</head>
+<body>
+<form method="get" action="" id="form1">
+    <my-form-element name="foo" value="bar"></my-form-element>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { createElement } from "../../../../src/core/functions/node.js";
+import { WebComponentMixin } from "../../../../src/core/web-component/web-component-mixin.js";
+import { FormWebComponentMixin } from "../../../../src/core/web-component/form-web-component-mixin.js";
+
+export class MyFormElement extends FormWebComponentMixin({ ElInterface: WebComponentMixin() }) {
+    constructor() {
+        super();
+    }
+    connectedCallback(template) {
+        super.connectedCallback(template);
+    }
+}
+customElements.define("my-form-element", MyFormElement);
+const formElement = document.querySelector("my-form-element");
+formElement.addEventListener("input", e => {
+    console.log("Input:", e.target.value);
+});
+formElement.value = "baz";
+formElement.setAttribute("value", "lorem");
+console.log(formElement.value);
+
+</script>
+</body>
+</html>

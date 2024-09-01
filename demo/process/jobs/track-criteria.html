@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Track Criteria - Jobs</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Tracks search query criteria for searchable text portions that change their content. For example, each time the status text (a searchable part) changes, it checks whether the search query applies to the text and whether the entire job article item matches the search query. Press "Do" to change the status text. Since the search query is set to "oi" and "doing" is the current status, the article will match the search query.</div>
+<script type="module">
+
+import { Job, Jobs } from "../../../src/process/jobs.js";
+import { simpleDemoTask } from "../../helpers/helpers.js";
+
+const jobs = new Jobs;
+const job = new Job("job1", simpleDemoTask, { jobs, category: "main" });
+document.body.append(job.toElement({ search: "oi" }));
+
+const controller = job.trackCriteria({ search: "oi" });
+console.log(controller.isMatch, controller.matches);
+controller.onchange = isMatch => {
+    console.log("matchchange", isMatch);
+}
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Delete Entries Notifier - Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Sets up a custom notifications notifier. The default notifier is a simple message container in the listing's header. When setting a custom notifier to can pipe messages through to your custom notifier solution. Delete a message to see how listing gets linked with the notifications center.</div>
+<script type="module">
+
+import { ArrayStoreManager } from "../../../../src/core/store/array-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+import { items } from "../items-long.js";
+import { notificationsCenter } from "../../../../src/components/site-notifications.js";
+import { siteNotificationsEl } from "../../../helpers/site-notifications.js";
+
+const store = new ArrayStoreManager(items);
+const listing = new StoreListing(store, "Store Listing", {
+    format: "chunks",
+    searchable: true,
+    keyAsDataId: true,
+    searchParams: {
+        perPage: 5
+    },
+    createMenuForEachItem: true,
+    itemBindings: ({ item, controls: { deleteController, releaseMenu } }) => {
+        releaseMenu().appendTo(item);
+    },
+    deleteEntriesMessages: {
+        notifier: (message, type) => {
+            notificationsCenter.sendParams(message, { type });
+        }
+    }
+});
+document.body.append(listing.element);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

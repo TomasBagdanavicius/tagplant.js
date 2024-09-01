@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Showcases how main item actions can be assigned to each listing item.</div>
+<script type="module">
+
+import { createElement } from "../../../../src/core/functions/node.js";
+import { ArrayStoreManager } from "../../../../src/core/store/array-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+import { items } from "../items-short.js";
+import { Popup } from "../../../../src/components/popover.js";
+import { createSlottedTemplate, createAndDefineCustomElement, objectToSlottedElement } from "../../../../src/core/web-component/functions.js";
+
+const visitTemplate = createSlottedTemplate([
+    { name: "name", wrapper: createElement("p", { classes: ["name"], elems: [{ tag: "span", options: { text: "Name: " } }] }) },
+    { name: "age", wrapper: createElement("p", { classes: ["age"], elems: [{ tag: "span", options: { text: "Age: " } }] }) },
+    "controls",
+]);
+createAndDefineCustomElement("store-item", { template: visitTemplate });
+
+const store = new ArrayStoreManager(items);
+const listing = new StoreListing(store, "Store Listing", {
+    format: "chunks",
+    searchable: true,
+    keyAsDataId: true,
+    createMenuForEachItem: true,
+    itemBindings: ({ item, controls: { releaseMenu } }) => {
+        releaseMenu().appendTo(item);
+    },
+    onVisit: ({ element, key }) => {
+        const { controls } = listing.getItemData(key);
+        const storeItemElem = createElement("store-item", {
+            elems: [...objectToSlottedElement(element).children]
+        });
+        const menu = controls.releaseMenu({ exclude: ["visit"] });
+        menu.element.setAttribute("slot", "controls");
+        menu.appendTo(storeItemElem);
+        const popup = new Popup(storeItemElem, {
+            title: "Hello World!",
+            includeCloseButton: true,
+            onClose: () => {
+                popup.remove();
+            }
+        });
+        popup.show();
+    },
+});
+document.body.append(listing.element);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

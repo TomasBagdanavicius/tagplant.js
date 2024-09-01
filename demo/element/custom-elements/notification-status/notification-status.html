@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Notifications</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">A showcase of a web component that allows to turn on browser notifications and shows notification status.</div>
+<script type="module">
+
+import { createElement } from "../../../../src/core/functions/node.js";
+import { NotificationStatus } from "../../../../src/element/custom-elements/notification-status.js";
+
+const notificationStatusEl = createElement("notification-status");
+document.body.append(notificationStatusEl);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

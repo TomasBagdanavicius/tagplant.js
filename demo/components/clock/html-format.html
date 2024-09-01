@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Clock</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">In this demo, time parts inside the &lt;time&gt; container are wrapped into individual &lt;span&gt; elements, eg. &lt;span class="weekday"&gt; or &lt;span class="month"&gt;.</div>
+<script type="module">
+
+import { Clock } from "../../../src/components/clock.js";
+import { dateTimeFormats } from "../../../var/date-time-formats.js";
+
+const clockPiece = Clock.getPiece(dateTimeFormats.SimpleDateTime);
+clockPiece.start();
+const elem = clockPiece.toElement({
+    classes: ["my-clock"],
+    format: "html",
+    splitTimeParts: false
+});
+document.body.append(elem);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

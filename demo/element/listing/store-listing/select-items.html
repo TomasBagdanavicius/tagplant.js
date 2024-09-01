@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-US" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>Select Items - Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Shows how items can be selected in a listing component. There are options to select/deselect all or select items programmatically.</div>
+<script type="module">
+
+import { createElement, createSimpleButton } from "../../../../src/core/functions/node.js";
+import { ArrayStoreManager } from "../../../../src/core/store/array-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+import { items } from "../items-short.js";
+
+const store = new ArrayStoreManager(items);
+const listing = new StoreListing(store, "Store Listing", {
+    selectItems: true,
+    paging: false,
+    itemBindings: ({ item, element, controls: { select: selectControl, deleteController } }) => {
+        if (selectControl) {
+            item.prepend(selectControl);
+        }
+        item.append(createElement("div", { elems: [deleteController.button] }));
+    },
+    format: "chunks",
+});
+listing.appendToBody();
+const controlsMenu = listing.releaseControlsMenu({ includeDeleteSelected: true });
+controlsMenu.appendTo(listing.footer);
+
+/* Select Programatically */
+
+const selectProgrammaticlly = createSimpleButton("Select Programmatically");
+selectProgrammaticlly.addEventListener("click", () => {
+    listing.selectItems([0, 2, 4]);
+});
+document.body.append(selectProgrammaticlly);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

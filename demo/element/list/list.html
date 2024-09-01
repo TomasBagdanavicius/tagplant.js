@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>List</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Builds a list of items.</div>
+<script type="module">
+
+import { createSimpleButton } from "../../../src/core/functions/node.js";
+import { List } from "../../../src/element/list.js";
+
+const list = new List();
+console.log(list);
+list.appendToBody();
+
+/* Count */
+console.log(list.count);
+
+/* Append */
+console.log(list.append(createSimpleButton("Lorem ipsum")));
+list.append("Hello World!");
+
+/* Custom Key */
+/* const [item, key] = list.append(document.createTextNode("Hello World!"), "hello");
+console.log(item, key); */
+
+/* Detach & Reattach Item */
+/* list.append(document.createTextNode("Detach & Reattach"), "detach-and-reattach");
+list.detachItem("detach-and-reattach");
+// list.reattachItem("detach-and-reattach"); */
+
+/* Detach List */
+/* const wrapper = document.createElement("div");
+wrapper.append(list.element);
+document.body.append(wrapper);
+//list.detach(); */
+
+/* Get Item */
+/* const [item, key] = list.append(createSimpleButton("Copy to Clipboard"));
+console.log(list.getItem(key)); */
+
+/* Count change */
+/* list.addEventListener("countchange", e => {
+    console.log("countchange", e);
+}); */
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

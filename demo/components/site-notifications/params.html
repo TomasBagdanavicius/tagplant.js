@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Params - Site Notifications</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">A showcase of a site notification with additional parameters: title, image, and a longer lifetime.</div>
+<script type="module">
+
+import { SVGCodeToBlob } from "../../../src/core/functions/misc.js";
+import { NotificationsCenter } from "../../../src/components/site-notifications.js";
+import { starSVG, repaintStarSVGToWhite } from "../../helpers/helpers.js";
+
+const notificationsCenter = new NotificationsCenter();
+notificationsCenter.appendToBody({
+    cancelOnClick: false,
+    includeDeleteButton: false,
+    includeControls: false,
+    id: "site-notifications"
+});
+const iconURL = URL.createObjectURL(SVGCodeToBlob(repaintStarSVGToWhite()));
+notificationsCenter.sendParams("Hello World!", {
+    title: "Hey!",
+    iconURL,
+    type: "normal",
+    durationActive: 100_000
+});
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

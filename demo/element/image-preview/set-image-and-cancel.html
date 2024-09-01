@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Set Image and Cancel - Image Preview</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="demo-description">Starts to set an image in the designated area but is immediately aborted.</div>
+<script type="module">
+
+import { bodyArea } from "../../helpers/body-area.js";
+import { ImagePreview } from "../../../src/element/image-preview.js";
+import { siteNotificationsEl } from "../../helpers/site-notifications.js";
+import { userPaths } from "../../../var/paths.js";
+
+const imagePreview = new ImagePreview;
+imagePreview.appendToBody();
+
+const response = await fetch(`${userPaths.project}demo/material/images/1000x1000_Earth.jpg`);
+const blob = await response.blob();
+const abortController = new AbortController;
+imagePreview.setImage(blob, "The Earth", { handle: abortController }).then(resizedImage => {
+    console.log(resizedImage);
+}).catch(error => {
+    console.log(error);
+});
+setTimeout(() => {
+    // Cancel through the abort controller.
+    abortController.abort();
+}, 0);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Slow Output - Form</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Handles a slow form response. Hit "Submit" to see how it works.</div>
+<script type="module">
+
+import { createElement } from "../../../../src/core/functions/node.js";
+import { headingLevels } from "../../../../src/core/functions/enumeration.js";
+import { Form } from "../../../../src/element/form/form.js";
+import { Article } from "../../../../src/element/article.js";
+import { CustomFormElementsBuilder } from "../../../../src/element/form/custom-form-elements-builder.js";
+import { StandardFormElementsBuilder } from "../../../../src/element/form/standard-form-elements-builder.js";
+import { formMap, formElementMap } from "../../../../var/form-schema-maps.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const url = `${userPaths.project}demo/api/slow-form-response.json`;
+const response = await fetch(url);
+const schema = await response.json();
+const form = Form.from(schema, formMap, formElementMap, {
+    formElementBuilder: new CustomFormElementsBuilder,
+    // formElementBuilder: new StandardFormElementsBuilder,
+});
+form.addEventListener("output", e => {
+    const article = new Article("Response", { headingLevel: headingLevels.one, includeStory: true });
+    article.insertIntoStory(createElement("p", { text: e.detail.payload.message }));
+    form.element.replaceWith(article.element);
+});
+form.appendToBody();
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

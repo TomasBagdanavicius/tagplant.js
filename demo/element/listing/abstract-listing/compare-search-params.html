@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Compare Search Params - Abstract - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { AbstractListing } from "../../../../src/element/listing/abstract-listing.js";
+
+const params1 = { colors: ["white", "black"] };
+const params2 = { colors: ["white"] };
+const diff = AbstractListing.compareSearchParams(params1, params2);
+console.log(Object.keys(diff));
+
+</script>
+</body>
+</html>

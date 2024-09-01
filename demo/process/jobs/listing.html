@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Listing - Jobs</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">A detailed listing of jobs.</div>
+<script type="module">
+
+import { Job, Jobs } from "../../../src/process/jobs.js";
+import { demoTasks, simpleDemoTask } from "../../helpers/helpers.js";
+
+const jobs = new Jobs;
+const job = new Job("job1", demoTasks, { jobs, category: "main" });
+const job2 = new Job("job2", simpleDemoTask, { jobs, category: "primary" });
+const job3 = new Job("job3", simpleDemoTask, { jobs, category: "secondary" });
+job.addDependency(job2);
+job.addDependency(job3);
+document.body.append(jobs.toElement({ format: "chunks" }));
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Jobs</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates a special component called Jobs. A job performs tasks and can depend on other jobs. In the example below, Job 1 depends on Job 2 and Job 3, meaning that Job 1 can be completed only when Job 2 and Job 3 are finished. Jobs also clearly define their tasks and goals to easily identify duplicate jobs or those that should be canceled.</div>
+<script type="module">
+
+import { Job, Jobs } from "../../../src/process/jobs.js";
+import { bodyArea } from "../../helpers/body-area.js";
+import { demoTasks, simpleDemoTask } from "../../helpers/helpers.js";
+
+const jobs = new Jobs;
+const job = new Job("job1", demoTasks, { jobs, category: "main" });
+const job2 = new Job("job2", simpleDemoTask, { jobs, category: "primary" });
+const job3 = new Job("job3", simpleDemoTask, { jobs, category: "secondary" });
+document.body.append(job.toElement());
+document.body.append(job2.toElement());
+document.body.append(job3.toElement());
+job.addDependency(job2);
+job.addDependency(job3);
+const filteredJobs = jobs.filter("secondary");
+console.log(filteredJobs);
+Jobs.waitFor(filteredJobs).then(() => {
+    console.log("wait over");
+});
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

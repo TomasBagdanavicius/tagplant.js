@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Dialog</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">This script module creates and displays a custom confirmation modal with a dynamically generated SVG icon, styled according to user-defined options.</div>
+<script type="module">
+
+import { SVGCodeToBlob } from "../../../../src/core/functions/misc.js";
+import { confirmModal } from "../../../../src/element/custom-elements/dialog.js";
+import { userPaths } from "../../../../var/paths.js";
+import { starSVG, repaintStarSVGToWhite } from "../../../helpers/helpers.js";
+
+const iconURL = URL.createObjectURL(SVGCodeToBlob(repaintStarSVGToWhite()));
+const options = {
+    title: "Hello World!",
+    iconURL,
+    cancelText: "Cancel",
+    okText: "Okay",
+    stylesheet: userPaths.stylesheets.dialog,
+    classes: ["foo", "bar"],
+    autofocus: "ok"
+};
+confirmModal("Are you sure you want to do this?", options).then(value => {
+    if (value) {
+        console.log("Okay");
+    } else {
+        console.log("Cancel");
+    }
+});
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+body.has-background-style {
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+.background-style {
+    max-width: 500px;
+    > .group {
+        flex-wrap: nowrap;
+        > * {
+            border: solid 1px var(--ridge-color);
+            &:not(:first-child) {
+                margin-top: -1px;
+            }
+            &:not(:last-child) {
+                padding: 10px;
+            }
+        }
+    }
+    .image-preview {
+        position: relative;
+        display: flex;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background-color: var(--mg-color);
+        > .menu {
+            margin: auto 10px 10px auto;
+        }
+        > .compact-process-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1;
+            translate: -50% -50%;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "name": "tagplant.js",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "A modular vanilla JavaScript framework and code library that leverages ES modules to build dynamic web applications.",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "build:amd": "ROLLUP_FORMAT=amd rollup -c",
+        "build:cjs": "ROLLUP_FORMAT=cjs rollup -c",
+        "build:es": "ROLLUP_FORMAT=es rollup -c",
+        "build:iife": "ROLLUP_FORMAT=iife rollup -c",
+        "build:umd": "ROLLUP_FORMAT=umd rollup -c",
+        "build:system": "ROLLUP_FORMAT=system rollup -c",
+        "build": "npm run build:iife",
+        "test": "node --experimental-vm-modules --no-deprecation node_modules/mocha/bin/mocha.js"
+    },
+    "keywords": [
+        "javascript",
+        "framework",
+        "modular",
+        "ES modules",
+        "web development",
+        "library",
+        "bundler",
+        "components",
+        "web applications",
+        "frontend",
+        "code library",
+        "modular design",
+        "templating",
+        "JavaScript framework",
+        "code organization",
+        "UI components",
+        "web tools"
+    ],
+    "author": "LWIS Technologies",
+    "license": "MIT",
+    "devDependencies": {
+        "@eslint/js": "latest",
+        "chai": "latest",
+        "eslint": "latest",
+        "fake-indexeddb": "latest",
+        "globals": "latest",
+        "jsdom": "latest",
+        "mocha": "latest",
+        "rollup": "latest",
+        "rollup-plugin-terser": "latest",
+        "sinon": "latest"
+    }
+}

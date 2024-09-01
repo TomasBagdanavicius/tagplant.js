@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Past Activation Time - Site Notifications</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<script type="module">
+
+import { SiteNotification } from "../../../src/components/site-notifications.js";
+
+const pastTime = Date.now() - 1_500;
+const siteNotification = new SiteNotification("Hello World!", { duration: 5_000, activationTime: pastTime });
+console.log("Is active:", siteNotification.isActive);
+console.log("Activation time:", siteNotification.activationTime);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

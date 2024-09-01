@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Classic Checkbox and Process - Checkbox</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates how the checkbox can be linked to an action with a process.</div>
+<div id="container" class="area"></div>
+<script type="module">
+
+import { adjacencyPositions } from "../../../../src/core/functions/enumeration.js";
+import { Process } from "../../../../src/process/process.js";
+import { CheckBoxElement } from "../../../../src/element/form/checkbox-element.js";
+import { bodyArea } from "../../../helpers/body-area.js";
+import { Area, globalAreas } from "../../../../src/core/process/area.js";
+import { landingDatabaseManager } from "../../../../var/indexed-databases.js";
+import { demoAction } from "../../../helpers/helpers.js";
+
+/* Indexed DB Update */
+
+const container = document.getElementById("container");
+const containerArea = new Area(container);
+const area = globalAreas.relative(container);
+const abortController = area.provideAbortController();
+const promise = landingDatabaseManager.readValue("settings", "checkboxTest", { signal: abortController.signal });
+const process = Process.wrapAroundPromise(promise, ["fetchcheckboxtest", "Fetch Checkbox Test"]);
+process.delayedInfoToggler(container, { adjacency: adjacencyPositions.afterbegin });
+promise.then(record => {
+    const checkBoxElem = CheckBoxElement.createElement("foo");
+    let state;
+    checkBoxElem.checked = state = record && record.value === "on";
+    container.append(checkBoxElem);
+    checkBoxElem.addEventListener("change", e => {
+        const { newState } = e.detail;
+        if (state !== newState) {
+            const area = globalAreas.relative(checkBoxElem);
+            const abortController = area.provideAbortController();
+            const storeValue = newState ? "on" : "off";
+            const promise = landingDatabaseManager.saveValue("settings", "checkboxTest", { value: storeValue }, { signal: abortController.signal, throttle: 2_000 });
+            const process = Process.wrapAroundPromise(promise, ["changecheckboxtest", "Change Checkbox Test"]);
+            checkBoxElem.setAttribute("disabled", "");
+            process.delayedInfoToggler(checkBoxElem);
+            promise.then(() => {
+                state = newState;
+            }).catch(error => {
+                checkBoxElem.checked = !newState;
+                console.error(error);
+            }).finally(() => {
+                checkBoxElem.removeAttribute("disabled");
+            });
+        }
+    });
+}).catch(error => {
+    console.error("Could not instantiate checkbox", error);
+});
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

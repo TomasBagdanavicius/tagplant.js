@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Match Value Constraint - Custom Form Elements</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates a constraint where value of one form element must match the value of other form element.</div>
+<form method="get" action="" id="form1">
+    <text-form-element
+        name="foo"
+        id="form-element-1"
+        controlsmenu="toggle"
+        controlslist=""
+        controlsfilter="none"
+        label="Text Element"
+    ></text-form-element>
+    <text-form-element
+        name="foo2"
+        id="form-element-2"
+        controlsmenu="toggle"
+        controlslist=""
+        controlsfilter="none"
+        label="Text Element 2"
+        matchvalue="form-element-1"
+    ></text-form-element>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { CustomFormElement } from "../../../../src/element/form/custom-form-element.js";
+import { MatchValueConstraint } from "../../../../src/core/constraints/match-value-constraint.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const formElement1 = document.getElementById("form-element-1");
+const formElement2 = document.getElementById("form-element-2");
+
+formElement1.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+formElement2.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

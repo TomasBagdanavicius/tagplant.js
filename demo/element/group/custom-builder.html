@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Builder - Group</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Uses a custom user-built group member builder.</div>
+<script type="module">
+
+import { createElement, valueToElement } from "../../../src/core/functions/node.js";
+import { Group } from "../../../src/element/group.js";
+
+const memberBuilder = {
+    build(element, key) {
+        let member = createElement("div", { classes: ["my-item"] });
+        for (const [name, value] of Object.entries(element)) {
+            const block = valueToElement(value);
+            block.classList.add("my-element");
+            member.append(block);
+        }
+        return member;
+    }
+};
+const group = new Group({ memberBuilder });
+const object = {
+    one: "One",
+    two: "Two",
+    three: "Three",
+};
+group.append(object);
+group.appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Process</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Visualizes a process using a special component designed for tasks that take time to complete. This component can display status information, progress updates, a loading icon, and more. The process information article is automatically attached to the compact status message (e.g., the clickable loading icon). It can also be attached to other elements, such as the button below.</div>
+<button type="button" id="go">Button</button>
+<script type="module">
+
+import { Process } from "../../../src/process/process.js";
+
+const goButton = document.getElementById("go");
+const abortController = new AbortController;
+const process = new Process("hello-world", "Hello World!", { handle: abortController, supportsProgress: true });
+const infoEl = process.toElement();
+document.body.append(infoEl);
+process.start();
+process.attachToElement(goButton);
+let timeout;
+let interval;
+timeout = setTimeout(() => {
+    process.complete();
+    clearInterval(interval);
+}, 100000);
+let i = 1;
+interval = setInterval(() => {
+    process.progress(i);
+    i++;
+}, 1000);
+process.addEventListener("statuschange", e => {
+    if (e.detail.newStatus === process.statuses.aborted) {
+        clearTimeout(timeout);
+        clearInterval(interval);
+    }
+});
+const infoToggler = process.createInfoToggler();
+document.body.append(infoToggler);
+process.attachedClassToggling(goButton);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

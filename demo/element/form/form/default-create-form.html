@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Default Create Form - Form</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Builds a form from JSON schema.</div>
+<script type="module">
+
+import { Form } from "../../../../src/element/form/form.js";
+import { CustomFormElementsBuilder } from "../../../../src/element/form/custom-form-elements-builder.js";
+import { StandardFormElementsBuilder } from "../../../../src/element/form/standard-form-elements-builder.js";
+import { formMap, formElementMap } from "../../../../var/form-schema-maps.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const response = await fetch(`${userPaths.project}demo/api/country-create.json`);
+const schema = await response.json();
+const form = Form.from(schema, formMap, formElementMap, {
+    formElementBuilder: new CustomFormElementsBuilder,
+    // formElementBuilder: new StandardFormElementsBuilder,
+});
+form.appendToBody();
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

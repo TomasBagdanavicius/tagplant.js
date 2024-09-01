@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Group</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Builds a group of items.</div>
+<script type="module">
+
+import { createElement, detachElement } from "../../../src/core/functions/node.js";
+import { Group } from "../../../src/element/group.js";
+
+const group = new Group({ options: { keyAsDataId: true } });
+group.append("Hello World!");
+group.append(createElement("div", { text: "Hello World!" }));
+group.append(["one", "two", "three"]);
+group.append({
+    one: "Vienas",
+    two: "Du",
+    three: "Trys",
+});
+group.appendToBody();
+/* Add Arbitrarily */
+group.element.append(createElement("div", { text: "New item" }));
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

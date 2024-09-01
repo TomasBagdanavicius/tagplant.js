@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Controls - Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates how custom controls can be integrated into listing to achieve custom filtering.</div>
+<script type="module">
+
+import { ArrayStoreManager } from "../../../../src/core/store/array-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+
+const items = [
+    { name: "Table", price: 150, color: "White", inStore: 1 },
+    { name: "Couch", price: 500, color: "White", inStore: 1 },
+    { name: "Bed", price: 350, color: "White", inStore: 0 },
+    { name: "Chair", price: 90, color: "Black", inStore: 1 },
+    { name: "Dresser", price: 200, color: "Black", inStore: 0 },
+];
+const store = new ArrayStoreManager(items);
+const listing = new StoreListing(store, "Store Listing", {
+    format: "chunks",
+    searchable: true,
+    keyAsDataId: true,
+    searchParams: {
+        perPage: 10
+    },
+    sortValues: { name: "Name", price: "Price", color: "Color", inStore: "In Store" },
+    // Apply custom params
+    applySearchParams: (searchParams, iterable, total, appliedParams) => {
+        const { inStore, colors } = searchParams;
+        appliedParams.inStore = inStore;
+        appliedParams.colors = colors;
+        const result = [];
+        for (const pair of iterable) {
+            const [, item] = pair;
+            if (colors !== undefined && !colors.includes(item.color)) {
+                continue;
+            }
+            if (inStore && !!item.inStore !== !!inStore) {
+                continue;
+            }
+            result.push(pair);
+        }
+        const newTotal = result.length;
+        return { iterable: result, total: newTotal, appliedParams };
+    },
+    includeHead: true,
+    // "menu", "button" or "self"
+    headItemSort: "button",
+    chunkNames: { name: "Name", price: "Price", color: "Color", inStore: "In Store" },
+});
+document.body.append(listing.element);
+
+/* Multiple Checkboxes */
+
+listing.registerSearchParam("colors", {
+    type: "menu",
+    title: "Colors",
+    control: "checkbox",
+    multiple: true,
+    requiresItems: true,
+    values: { White: "White", Black: "Black" },
+});
+const colorsMenu = listing.createControlBySearchParam("colors");
+colorsMenu.appendTo(listing.footer);
+
+/* Single Checkbox */
+
+listing.registerSearchParam("inStore", {
+    type: "checkbox",
+});
+const inStoreCheckbox = listing.createControlBySearchParam("inStore", { title: "In Store" });
+listing.footer.append(inStoreCheckbox);
+
+/* Debug Search Params */
+
+listing.addEventListener("searchparamsset", e => {
+    const { colors, inStore } = e.detail.searchParams;
+    console.log(colors, inStore);
+});
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

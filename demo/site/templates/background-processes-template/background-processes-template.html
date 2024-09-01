@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Root Template</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { BackgroundProcessesTemplate } from "../../../../src/site/templates/background-processes-template.js";
+import { notificationsCenter } from "../../../../src/components/site-notifications.js";
+
+const template = new BackgroundProcessesTemplate({ notificationsCenter });
+const { nodes } = template.getParts();
+document.body.append(...nodes);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Set Image and Upload - Image Preview</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="demo-description">Sets an image in the designated area and uploads it to the chosen location simultaneously.</div>
+<script type="module">
+
+import { bodyArea } from "../../helpers/body-area.js";
+import { ImagePreview } from "../../../src/element/image-preview.js";
+import { networkRequest } from "../../../src/process/network-request.js";
+import { userPaths } from "../../../var/paths.js";
+
+const dimensionRequirements = {
+    minWidth: 1000,
+    minHeight: 1000,
+};
+const uploadURL = `${userPaths.project}demo/api/upload.php`;
+const imagePreview = ImagePreview.withFileUpload(uploadURL, { dimensionRequirements });
+imagePreview.appendToBody();
+(async () => {
+    const url = `${userPaths.project}demo/material/images/1000x1000_Earth.jpg`;
+    const file = await networkRequest(url, new AbortController, { asFile: true });
+    imagePreview.processFile(file);
+})();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

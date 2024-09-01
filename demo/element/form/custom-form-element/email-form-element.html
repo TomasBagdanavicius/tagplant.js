@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Email Form Element - Custom Form Elements</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Showcases a custom form element which accepts email addresses or issues an error otherwise.</div>
+<form method="get" action="" id="form1">
+    <email-form-element
+        name="email"
+        id="form-element"
+        label="Email Element"
+        controlsmenu="toggle"
+        controlsfilter="none"
+    ></password-form-element>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { CustomFormElement } from "../../../../src/element/form/custom-form-element.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const formElement = document.getElementById("form-element");
+console.log(formElement);
+formElement.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

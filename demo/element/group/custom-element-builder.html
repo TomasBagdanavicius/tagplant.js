@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Element Builder - Group</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Instruct the group component to build items as custom HTML elements.</div>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { objectIterator } from "../../../src/core/functions/object.js";
+import { Group } from "../../../src/element/group.js";
+import { createSlottedTemplate, createAndDefineCustomElement } from "../../../src/core/web-component/functions.js";
+
+const template = createSlottedTemplate([
+    "one",
+    { name: "two", wrapper: createElement("strong") },
+    { name: "three", wrapper: createElement("em") },
+]);
+createAndDefineCustomElement("group-member", { template });
+
+const memberBuilder = Group.customElementMemberBuilder;
+memberBuilder.customElementName = "group-member";
+const group = new Group({ memberBuilder });
+const object = {
+    one: "One",
+    two: "Two",
+    three: "Three",
+};
+group.append(object);
+group.appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

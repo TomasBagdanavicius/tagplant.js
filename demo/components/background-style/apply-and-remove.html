@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Apply and Remove - Background Style</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script type="module">
+
+import { bodyArea } from "../../helpers/body-area.js";
+import { backgroundStyle } from "../../../src/components/background-style.js";
+import { siteNotificationsEl } from "../../helpers/site-notifications.js";
+
+backgroundStyle.apply();
+console.log("Background style applied");
+setTimeout(() => {
+    backgroundStyle.remove();
+    console.log("Background style removed");
+    setTimeout(() => {
+        backgroundStyle.apply();
+        console.log("Background style applied again");
+    }, 2_000);
+}, 2_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

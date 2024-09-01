@@ -1,0 +1,7 @@
+recursive: true
+spec: "test/**/*.test.js"
+# spec, nyan, dot
+reporter: "nyan"
+require: "./test/setup.js"
+# ignore:
+#     - "test/**/*.test.js"

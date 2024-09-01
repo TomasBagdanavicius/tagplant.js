@@ -1,0 +1,29 @@
+{
+    "status": 1,
+    "data": {
+        "email": {
+            "type": "email",
+            "min": 3,
+            "max": 255,
+            "required": true,
+            "title": "Email",
+            "description": "Email address."
+        },
+        "password": {
+            "type": "string",
+            "min": 8,
+            "max": 100,
+            "title": "Password",
+            "required": true,
+            "description": "Secure login password.",
+            "subtype": "password"
+        }
+    },
+    "presentation": "form",
+    "title": "Login",
+    "request": {
+        "url": "http:\/\/localhost\/toolkit\/request.php",
+        "title": "Submit"
+    },
+    "request_method": "post"
+}

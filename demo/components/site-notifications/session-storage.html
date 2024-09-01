@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Session Storage - Site Notifications</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Stores notifications into session storage. Try sending a new notification manually and then reload the page to fetch the list from session storage.</div>
+<script type="module">
+
+import { createSimpleButton } from "../../../src/core/functions/node.js";
+import { generateRandomString } from "../../../src/core/functions/string.js";
+import { NotificationsCenter, NotificationsCenterSessionStoreHandler } from "../../../src/components/site-notifications.js";
+
+const button = createSimpleButton("Send Notification");
+button.addEventListener("click", () => {
+    notificationsCenter.sendText(`Message ${generateRandomString(10, { specialChars: false })}`);
+});
+document.body.append(button);
+
+const storeName = "siteNotifications_test";
+const initialItems = NotificationsCenterSessionStoreHandler.fetchItems(storeName);
+
+const notificationsCenter = new NotificationsCenter({ initialItems });
+const notificationsCenterStoreHandler = new NotificationsCenterSessionStoreHandler(notificationsCenter, storeName);
+notificationsCenterStoreHandler.enable();
+notificationsCenter.appendToBody({
+    hideOnCancel: false,
+    classes: [],
+    customListingOptions: {
+        format: "chunks",
+    },
+});
+notificationsCenter.appendToBody({ cancelOnClick: false, includeDeleteButton: false, id: "site-notifications", includeControls: false });
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

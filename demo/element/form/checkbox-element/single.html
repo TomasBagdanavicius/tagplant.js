@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Single - Checkbox</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<form method="get" action="">
+    <check-box name="foo" id="form-element" label="Label" description="Lorem ipsum dolor sit amet" required controlsmenu="toggle"></check-box>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { CheckBoxElement } from "../../../../src/element/form/checkbox-element.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const formElement = document.querySelector("check-box");
+formElement.addEventListener("input", e => {
+    console.log("input", e);
+});
+formElement.setAttribute("stylesheet", userPaths.stylesheets.checkbox);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

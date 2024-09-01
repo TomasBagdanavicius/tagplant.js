@@ -1,0 +1,48 @@
+{
+    "status": 1,
+    "data": {
+        "name": {
+            "type": "string",
+            "min": 3,
+            "max": 255,
+            "required": true,
+            "title": "Name",
+            "description": "Full name."
+        },
+        "email": {
+            "type": "email",
+            "min": 3,
+            "max": 255,
+            "required": true,
+            "title": "Email",
+            "description": "Registered and active email address."
+        },
+        "subject": {
+            "type": "string",
+            "min": 8,
+            "max": 100,
+            "title": "Subject",
+            "required": true,
+            "description": "Subject line."
+        },
+        "message": {
+            "type": "text",
+            "min": 50,
+            "max": 1000,
+            "title": "Message",
+            "required": true,
+            "description": "Message text."
+        }
+    },
+    "presentation": "form",
+    "title": "Contact Form",
+    "name": "contact",
+    "request": {
+        "url": "./contact-form-response.json",
+        "title": "Send"
+    },
+    "request_method": "post",
+    "endpoints": {
+        "home": "./home.html"
+    }
+}

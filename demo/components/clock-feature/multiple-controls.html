@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Multiple Controls - Clock Feature</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates synchronization of multiple controls of the same type.</div>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { clockFeature } from "../../../src/components/clock-feature.js";
+import { Menu } from "../../../src/element/menu.js";
+
+const clockContainer = createElement("p", { id: "clock-container" });
+clockFeature.applyStoreController();
+clockFeature.releaseElement({
+    host: clockContainer,
+    attach(elem) {
+        this.host.append(elem);
+    },
+    remove() {
+        this.host.children[0].remove();
+    }
+});
+const visibilityControl1 = clockFeature.releaseVisibilityControl();
+const visibilityControl2 = clockFeature.releaseVisibilityControl();
+const formatMenu1 = clockFeature.releaseFormatMenu({ type: Menu.types.toggle, selectValue: true });
+const formatMenu2 = clockFeature.releaseFormatMenu({ type: Menu.types.toggle, selectValue: true });
+let formatText = clockFeature.formatWithSampleDate(await clockFeature.getFormat());
+formatMenu1.headingText = formatText;
+formatMenu2.headingText = formatText;
+clockFeature.addEventListener("formatchange", e => {
+    const { newFormat, oldFormat } = e.detail;
+    formatText = clockFeature.formatWithSampleDate(newFormat);
+    formatMenu1.headingText = formatText;
+    formatMenu2.headingText = formatText;
+});
+document.body.append(
+    clockContainer,
+    createElement("p", { elems: [visibilityControl1] }),
+    createElement("p", { elems: [visibilityControl2] }),
+    createElement("p", { elems: [formatMenu1.element] }),
+    createElement("p", { elems: [formatMenu2.element] }),
+);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

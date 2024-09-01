@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Processes Log - Process</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">A component that logs all processes and allows to manage them through a listing interface.</div>
+<script type="module">
+
+import { Process } from "../../../src/process/process.js";
+import { processesCenter } from "../../../src/process/process-log.js";
+import { demoProcess } from "../../helpers/helpers.js";
+
+processesCenter.appendToBody();
+const listing = processesCenter.releaseListing();
+listing.appendToBody();
+
+demoProcess({ length: 10_000, category: "main" });
+setTimeout(() => {
+    demoProcess({ length: 10_000, category: "regular" });
+}, 2_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

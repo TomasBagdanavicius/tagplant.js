@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Toggle - Menu</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Creates a toggling menu.</div>
+<script type="module">
+
+import { Menu } from "../../../src/element/menu.js";
+
+const menu = new Menu({ type: Menu.types.toggle, host: document.body });
+for (let i = 1; i <= 2; i++) {
+    menu.appendButton(`Button ${i}`, `button-${i}`);
+}
+menu.appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

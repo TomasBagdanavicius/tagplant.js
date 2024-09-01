@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Detach/Attach Member - Group</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Shows how group member can be detached and then reattached again.</div>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { Group } from "../../../src/element/group.js";
+
+const group = new Group;
+group.appendToBody();
+group.append("Hello World!", "hello-world");
+setTimeout(() => {
+    group.detachMember("hello-world");
+    setTimeout(() => {
+        group.reattachMember("hello-world");
+    }, 1_000);
+}, 1_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

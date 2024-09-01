@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Error - Form Elements</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Shows how to assign a custom constaint for a given custom form element. Type in text that does not contain letter "a" to see how it works.</div>
+<form method="get" action="" id="form1">
+    <text-form-element
+        name="foo"
+        id="form-element"
+        controlsmenu="toggle"
+        controlsfilter="none"
+        label="Text Element"
+    ></text-form-element>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { CustomFormElement } from "../../../../src/element/form/custom-form-element.js";
+import { ContainsLetterConstraint } from "../../../../src/core/constraints/contains-letter-constraint.js";
+import { Constraint } from "../../../../src/core/constraints/constraint.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const formElement = document.getElementById("form-element");
+const containsLetterConstraint = new ContainsLetterConstraint("a");
+formElement.setCustomConstraint(containsLetterConstraint, { attrName: "containsletter" });
+formElement.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

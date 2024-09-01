@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>On Time - Clock</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">The clock component can run a callback at a specified time. "Time up" notification will popup in a few seconds.</div>
+<script type="module">
+
+import { Clock } from "../../../src/components/clock.js";
+
+const waitSeconds = 3;
+const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+const futureTimeInSeconds = currentTimeInSeconds + waitSeconds;
+const futureDate = new Date(futureTimeInSeconds * 1000);
+Clock.onTime(futureDate).then(() => document.body.append("Time up")).catch(error => console.error(error));
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

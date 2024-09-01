@@ -1,0 +1,256 @@
+@layer root, normalize, base, type, accessories, style;
+/* Base */
+@layer base {
+  .site-header .color-mode-menu li.os > button, .site-header .color-mode-menu li.light > button, .site-header .color-mode-menu li.dark > button {
+    --button-y-padding: 0px;
+    overflow: hidden;
+    align-items: flex-start;
+    height: 0;
+    padding: var(--enclosed-height, var(--height)) 0 0;
+  }
+  :focus,
+  :focus-visible {
+    outline: solid 2px var(--accent-color);
+    outline-offset: 1px;
+  }
+  .clickable {
+    cursor: pointer;
+  }
+  .group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+/* Base */
+@layer normalize {
+  :focus-visible {
+    outline: none;
+  }
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+}
+/* Structural Content */
+@layer normalize {
+  p {
+    margin: 0;
+  }
+}
+/* Structural Content */
+@layer base {
+  p {
+    margin-bottom: 1em;
+  }
+}
+/* Structural Content: Website Container */
+@layer base {
+  .website-container, .site-container {
+    max-width: var(--website-container-outer-width);
+    margin-inline: auto;
+    padding-inline: var(--website-container-gutter);
+  }
+}
+/* Icon Host */
+@layer accessories {
+  .site-header .color-mode-menu li.os > button, .site-header .color-mode-menu li.light > button, .site-header .color-mode-menu li.dark > button {
+    --icon-width: 32px;
+    --icon-height: 32px;
+    --icon-color: currentColor;
+    --icon-color-alt: var(--accent-color);
+    --icon-width-half: calc(var(--icon-width) / 2);
+    --icon-width-negative: calc(0px - var(--icon-width));
+    --icon-height-half: calc(var(--icon-height) / 2);
+    --icon-height-negative: calc(0px - var(--icon-height));
+    --icon-weight-half: calc(var(--icon-weight) / 2);
+    /* Sides */
+    --icon-weight-side-len: calc(var(--icon-weight) * cos(45deg));
+    position: relative;
+  }
+  .site-header .color-mode-menu li.os > button, .site-header .color-mode-menu li.light > button, .site-header .color-mode-menu li.dark > button {
+    --icon-host-gap-before: 0px;
+    --icon-host-gap-after: 5px;
+    --icon-host-x-padding: calc(var(--icon-width) + var(--icon-host-gap-before) + var(--icon-host-gap-after));
+    --icon-host-y-padding: calc(var(--icon-height) + var(--icon-host-gap-before) + var(--icon-host-gap-after));
+  }
+  .site-header .color-mode-menu li.os > button::before, .site-header .color-mode-menu li.light > button::before, .site-header .color-mode-menu li.dark > button::before {
+    position: absolute;
+  }
+  .site-header .color-mode-menu li.os > button, .site-header .color-mode-menu li.light > button, .site-header .color-mode-menu li.dark > button {
+    --height: var(--icon-height);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* CSS Icons */
+@layer accessories {
+  .site-header .color-mode-menu li.os > button, .site-header .color-mode-menu li.light > button, .site-header .color-mode-menu li.dark > button {
+    --box-width: 50px;
+    --box-height: 50px;
+    --box-border-width: 0px;
+    --icon-weight: 2px;
+    --is-rounded-edges: 1;
+    --box-inner-width: calc(var(--box-width) - var(--box-border-width) * 2);
+    --box-inner-height: calc(var(--box-height) - var(--box-border-width) * 2);
+    --remaining-x-space: calc(var(--box-inner-width) - var(--icon-width));
+    --remaining-x-space-half: calc(var(--remaining-x-space) / 2);
+    --remaining-y-space: calc(var(--box-inner-height) - var(--icon-height));
+    --remaining-y-space-half: calc(var(--remaining-y-space) / 2);
+    --is-rounded-edges-norm: clamp(0, var(--is-rounded-edges), 1);
+    --rounded-edges-by-icon-weight: calc((1 - var(--is-rounded-edges-norm)) * 0px + var(--is-rounded-edges-norm) * var(--icon-weight-half));
+  }
+  .site-header .color-mode-menu li.os > button::before, .site-header .color-mode-menu li.light > button::before, .site-header .color-mode-menu li.dark > button::before, .site-header .color-mode-menu li.os > button::after, .site-header .color-mode-menu li.light > button::after, .site-header .color-mode-menu li.dark > button::after {
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(50% - var(--icon-height-half));
+    left: calc(50% - var(--icon-width-half));
+    z-index: 1;
+    background: var(--icon-color);
+    pointer-events: none;
+    content: "";
+  }
+  .site-header .color-mode-menu li.dark > button {
+    --icon-size: 30px;
+    --offset: 12px;
+    --icon-size-half: calc(var(--icon-size) / 2);
+    --icon-width: calc((var(--icon-size) - var(--offset)) / 2 + var(--offset));
+    --icon-height: var(--icon-size);
+    /* Imaginary intersecting double circles. */
+    --double-circle-width: calc(var(--icon-size) + var(--offset));
+  }
+  .site-header .color-mode-menu li.dark > button::before {
+    left: calc(50% - ((var(--icon-size) - var(--offset)) / 2 - var(--offset)) / 2);
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: calc(0px - var(--offset)) 0 0 0 var(--icon-color);
+    clip-path: circle(var(--icon-size-half) at calc(var(--icon-size-half) - var(--offset)) var(--icon-size-half));
+  }
+  .site-header .color-mode-menu li.os > button {
+    --icon-size: 30px;
+    --icon-width: var(--icon-size);
+    --icon-height: var(--icon-size);
+  }
+  .site-header .color-mode-menu li.os > button::before {
+    width: var(--icon-width);
+    height: var(--icon-height);
+    border: solid var(--icon-weight) var(--icon-color);
+    border-radius: 50%;
+    background: transparent;
+  }
+  .site-header .color-mode-menu li.os > button::after {
+    width: var(--icon-width-half);
+    height: var(--icon-height);
+    border-radius: var(--icon-height-half) 0 0 var(--icon-height-half);
+  }
+  .site-header .color-mode-menu li.light > button {
+    --core-size: 30px;
+    --beam-size: 5px;
+    --icon-gap: 3px;
+    --icon-size: calc(var(--core-size) + var(--beam-size) * 2 + var(--icon-gap) * 2);
+    --icon-width: var(--icon-size);
+    --icon-height: var(--icon-size);
+    --core-size-half: calc(var(--core-size) / 2);
+    --beam-size-half: calc(var(--beam-size) / 2);
+    /* Imaginary circle that pierces through the middle of beams. */
+    --beam-circle-radius: calc(var(--core-size-half) + var(--icon-gap) + var(--beam-size-half));
+    --outer-circle-radius: calc(var(--core-size-half) + var(--icon-gap) + var(--beam-size));
+    --full-core-to-outer: calc(var(--core-size) + var(--icon-gap) + var(--beam-size));
+  }
+  .site-header .color-mode-menu li.light > button::before, .site-header .color-mode-menu li.light > button::after {
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .site-header .color-mode-menu li.light > button::before {
+    top: calc(50% - var(--core-size-half));
+    left: calc(50% - var(--core-size-half));
+    width: var(--core-size);
+  }
+  .site-header .color-mode-menu li.light > button:after {
+    left: calc(50% - var(--beam-size-half));
+    width: var(--beam-size);
+    /* Distance from the starting position (90deg) to the center. */
+    --off: calc(var(--beam-size-half) + var(--core-size-half) + var(--icon-gap));
+    --x45: calc(var(--beam-circle-radius) * cos(45deg));
+    --y45: calc(var(--beam-circle-radius) * sin(45deg));
+    --x315: calc(var(--beam-circle-radius) * cos(315deg));
+    --y315: calc(var(--beam-circle-radius) * sin(315deg));
+    --x225: calc(var(--beam-circle-radius) * cos(225deg));
+    --y225: calc(var(--beam-circle-radius) * sin(225deg));
+    --x135: calc(var(--beam-circle-radius) * cos(135deg));
+    --y135: calc(var(--beam-circle-radius) * sin(135deg));
+    box-shadow: var(--x45) calc(var(--off) - var(--y45)), var(--off) var(--off) 0, var(--x315) calc(var(--off) - var(--y315)), 0 calc(var(--core-size) + var(--beam-size) + var(--icon-gap) * 2) 0, var(--x225) calc(var(--off) - var(--y225)), calc(0px - var(--off)) var(--off) 0, var(--x135) calc(var(--off) - var(--y135));
+  }
+}
+/* Root Properties */
+@layer root {
+  :root {
+    color-scheme: light dark;
+    --menu-bg-color: var(--fg-color);
+    --container-width: 1000;
+    --website-container-inner-width: calc(var(--container-width) * 1px);
+    --website-container-gutter: 15px;
+    --website-container-outer-width: calc(var(--website-container-inner-width) + var(--website-container-gutter) * 2);
+  }
+  :root[data-theme=dark] {
+    color-scheme: dark;
+    --theme-binary: 0;
+    --contrast: #000;
+    --opposite-contrast: #fff;
+  }
+  :root[data-theme=light] {
+    color-scheme: light;
+    --theme-binary: 1;
+    --contrast: #fff;
+    --opposite-contrast: #000;
+  }
+}
+.site-container {
+  --gutter: 15px;
+}
+
+textarea-form-element {
+  --input-textarea-box-height: 200px;
+}
+
+.site-header > nav > .heading,
+.site-footer > nav > .heading {
+  display: none;
+}
+.site-header > nav > .group,
+.site-footer > nav > .group {
+  flex-direction: row;
+  gap: 20px;
+  font-size: 16px;
+}
+
+.site-header {
+  padding-top: 15px;
+}
+.site-header .color-mode-menu li > button {
+  --icon-size: 22px;
+  aspect-ratio: 1;
+}
+.site-header .color-mode-menu li.light > button {
+  --core-size: 12px;
+  --beam-size: 3px;
+  --icon-gap: 2px;
+}
+.site-header .color-mode-menu li.dark > button {
+  --offset: 8px;
+}
+
+.site-footer {
+  padding-bottom: 15px;
+}
+
+/*# sourceMappingURL=demo-representational.css.map */

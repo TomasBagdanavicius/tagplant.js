@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Element Template</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { CustomElementTemplate } from "../../../../src/site/templates/custom-element-template.js";
+
+const data = {
+    name: "John Doe",
+};
+const template = new CustomElementTemplate(data, "custom-element");
+const { nodes } = template.getParts();
+document.body.append(...nodes);
+
+</script>
+</body>
+</html>

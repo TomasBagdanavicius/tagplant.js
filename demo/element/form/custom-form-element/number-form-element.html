@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Number Form Element - Custom Form Elements</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Showcases a number form element suffering a validity error.</div>
+<form method="get" action="" id="form1">
+    <number-form-element
+        name="query"
+        id="form-element"
+        label="Number Element"
+        controlsmenu="toggle"
+        controlsfilter="none"
+        stylesheet_="../../stylesheets/form-element.css"
+        min="10"
+        max="20"
+    ></number-form-element>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { createElement } from "../../../../src/core/functions/node.js";
+import { CustomFormElement } from "../../../../src/element/form/custom-form-element.js";
+import { Form } from "../../../../src/element/form/form.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const formElement = document.getElementById("form-element");
+console.log(formElement);
+
+setTimeout(() => {
+    formElement.setValue("21");
+}, 1_000);
+formElement.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

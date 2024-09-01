@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Custom Error - Form Elements</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Sets a one time validity error. Error is removed once form element starts to be populated. Useful when one needs to assign custom errors that came from the server.</div>
+<form method="get" action="" id="form1">
+    <label for="text">Text:</label>
+    <text-form-element
+        name="foo"
+        id="input1"
+        controlsmenu="toggle"
+        controlsfilter="none"
+        label="Text Element"
+        value="Hello World!"
+    ></text-form-element>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { CustomFormElement } from "../../../../src/element/form/custom-form-element.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const form1 = document.getElementById("form1");
+const formElement = document.getElementById("input1");
+formElement.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+formElement.setOneTimeValidityState({
+    customError: "This is my custom one time error."
+});
+formElement.reportValidity();
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

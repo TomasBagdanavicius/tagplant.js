@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Fullscreen</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Toggle on and off the fullscreen mode.</div>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { fullscreen } from "../../../src/components/fullscreen.js";
+import { userPaths } from "../../../var/paths.js";
+
+const toggler = createElement("fullscreen-toggler", {
+    text: "Toggle Root Fullscreen Mode",
+    attrs: {
+        stylesheet: `${userPaths.stylesheets.fullscreenToggler}`
+    }
+});
+document.body.append(toggler);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

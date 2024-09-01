@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Undetermined State - Checkbox</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates a checkbox with integrated undetermined state.</div>
+<script type="module">
+
+import { adjacencyPositions } from "../../../../src/core/functions/enumeration.js";
+import { Process } from "../../../../src/process/process.js";
+import { CheckBoxElement } from "../../../../src/element/form/checkbox-element.js";
+import { landingDatabaseManager } from "../../../../var/indexed-databases.js";
+import { demoAction } from "../../../helpers/helpers.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const abortController = new AbortController;
+const promise = landingDatabaseManager.readValue("settings", "checkboxTest", { signal: abortController.signal });
+const process = Process.wrapAroundPromise(promise, ["fetchcheckboxtest", "Fetch Checkbox Test"]);
+process.delayedInfoToggler(document.body, { adjacency: adjacencyPositions.afterbegin });
+promise.then(record => {
+    const checkBoxElem = CheckBoxElement.createElement("foo");
+    let state;
+    checkBoxElem.checked = state = record && record.value === "on";
+    document.body.append(checkBoxElem);
+    checkBoxElem.addEventListener("change", e => {
+        const { newState } = e.detail;
+        if (state !== newState) {
+            const abortController = new AbortController;
+            const storeValue = newState ? "on" : "off";
+            const promise = landingDatabaseManager.saveValue("settings", "checkboxTest", { value: storeValue }, { signal: abortController.signal, throttle: 2_000 });
+            const process = Process.wrapAroundPromise(promise, ["changecheckboxtest", "Change Checkbox Test"]);
+            checkBoxElem.attachProcess(process);
+            promise.then(() => {
+                state = newState;
+            }).catch(error => {
+                checkBoxElem.checked = !newState;
+                console.error(error);
+            }).finally(() => {
+                console.log("Finally");
+            });
+        }
+    });
+}).catch(error => {
+    console.error("Could not instantiate checkbox", error);
+});
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

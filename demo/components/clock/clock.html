@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Clock</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Showcases a live clock, which can be displayed in different formats. The clock is wrapped inside &lt;time&gt; element with a live "datetime" attribute's value for meaningful semantics.</div>
+<script type="module">
+
+import { Clock } from "../../../src/components/clock.js";
+import { dateTimeFormats } from "../../../var/date-time-formats.js";
+
+const clockPiece = Clock.getPiece(dateTimeFormats.Time24);
+clockPiece.start();
+const elem = clockPiece.toElement();
+document.body.append(elem);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

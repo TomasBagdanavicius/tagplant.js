@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Change Format and Locale - Clock</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">In this demo the format will change automatically after a few seconds. It will change from "ShortDateTime" to "ExtendedDateTime".</div>
+<script type="module">
+
+import { Clock } from "../../../src/components/clock.js";
+import { dateTimeFormats } from "../../../var/date-time-formats.js";
+
+const clockPiece = Clock.getPiece(dateTimeFormats.ShortDateTime);
+clockPiece.start();
+const elem = clockPiece.toElement();
+document.body.append(elem);
+
+setTimeout(() => {
+    clockPiece.changeFormat(dateTimeFormats.ExtendedDateTime);
+    clockPiece.changeLocale("de-DE");
+}, 3_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+    "status": 1,
+    "data": {
+        "id": {
+            "value": 2,
+            "title": "ID"
+        },
+        "title": {
+            "value": "John Doe",
+            "title": "Title"
+        },
+        "name": {
+            "value": "john-doe",
+            "title": "Name"
+        },
+        "status": {
+            "value": 1,
+            "title": "Status"
+        },
+        "date_created": {
+            "value": "Mon, 11 Jul 2022 12:06:22",
+            "title": "Date Created"
+        },
+        "initials": {
+            "value": "JD",
+            "title": "Initials"
+        },
+        "birthday": {
+            "value": "1983-09-18",
+            "title": "Birthday"
+        },
+        "age": {
+            "value": "40",
+            "title": "Age"
+        },
+        "first_name": {
+            "value": "John",
+            "title": "First Name"
+        },
+        "middle_name": {
+            "value": null,
+            "title": "Middle Name"
+        },
+        "last_name": {
+            "value": "Doe",
+            "title": "Last Name"
+        },
+        "birthyear": {
+            "value": 1983,
+            "title": "Birth Year"
+        },
+        "date_of_birth": {
+            "value": "09-18",
+            "title": "Date of Birth"
+        }
+    },
+    "title": "John Doe",
+    "presentation": "article"
+}

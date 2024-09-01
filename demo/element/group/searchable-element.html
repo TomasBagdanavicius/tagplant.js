@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Searchable Element - Group</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Shows how to include an item in a group with searchable content.</div>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { objectIterator } from "../../../src/core/functions/object.js";
+import { searchIterator } from "../../../src/core/functions/misc.js";
+import { Group } from "../../../src/element/group.js";
+
+const group = new Group;
+const object = {
+    one: "Vienas",
+    two: "Du",
+    three: "Trys",
+};
+const iterable = searchIterator(Object.values(object), "s");
+group.append(iterable);
+group.appendToBody();
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

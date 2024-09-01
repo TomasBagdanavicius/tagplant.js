@@ -1,0 +1,7 @@
+.DS_Store
+/node_modules/
+package-lock.json
+scripts/prepare-build.sh
+/tmp/
+var/paths.js
+docs/release-steps.md

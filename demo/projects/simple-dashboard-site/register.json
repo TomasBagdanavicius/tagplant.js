@@ -1,0 +1,72 @@
+{
+    "status": 1,
+    "data": {
+        "first_name": {
+            "type": "string",
+            "max": 50,
+            "allow_empty": false,
+            "title": "First Name",
+            "description": "Your first name.",
+            "required": true
+        },
+        "last_name": {
+            "type": "string",
+            "max": 100,
+            "allow_empty": false,
+            "title": "Last Name",
+            "description": "Your last name.",
+            "required": true
+        },
+        "email_address": {
+            "type": "email_address",
+            "max": 254,
+            "searchable": true,
+            "allow_empty": false,
+            "title": "Email Address",
+            "description": "Registered and active email address.",
+            "required": true
+        },
+        "password": {
+            "type": "string",
+            "required": true,
+            "min": 8,
+            "max": 100,
+            "allow_empty": false,
+            "description": "Strong password for authentication.",
+            "title": "Password",
+            "subtype": "password"
+        },
+        "password_repeat": {
+            "type": "string",
+            "required": true,
+            "min": 8,
+            "max": 100,
+            "match": "password",
+            "allow_empty": false,
+            "description": "An exact match of the strong password.",
+            "title": "Password Repeat",
+            "subtype": "password"
+        }
+    },
+    "authentication": {
+        "isAuthenticated": false
+    },
+    "endpoints": {
+        "home": ".\/dashboard.json",
+        "login": ".\/login.json",
+        "logout": ".\/logout.json"
+    },
+    "presentation": "form",
+    "title": "Create Your Account",
+    "request": {
+        "url": "./register-done.json",
+        "title": "Create"
+    },
+    "request_method": "post",
+    "navigation": {
+        "login": {
+            "url": ".\/login.json",
+            "title": "Login"
+        }
+    }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Clear - Form</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Clears the form programmatically.</div>
+<script type="module">
+
+import { Form } from "../../../../src/element/form/form.js";
+import { CustomFormElementsBuilder } from "../../../../src/element/form/custom-form-elements-builder.js";
+import { StandardFormElementsBuilder } from "../../../../src/element/form/standard-form-elements-builder.js";
+import { formMap, formElementMap } from "../../../../var/form-schema-maps.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const url = `${userPaths.project}demo/api/simple-form-with-values.json`;
+const response = await fetch(url);
+const schema = await response.json();
+const form = Form.from(schema, formMap, formElementMap, {
+    formElementBuilder: new CustomFormElementsBuilder,
+    // formElementBuilder: new StandardFormElementsBuilder,
+});
+form.appendToBody();
+
+setTimeout(() => {
+    form.clear();
+}, 1_000);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

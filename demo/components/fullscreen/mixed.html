@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Mixed - Fullscreen</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="demo-description">Note: once root fullscreen is enabled, it is possible to switch immediately to element fullscreen.</div>
+<fullscreen-toggler>Toggle Root Fullscreen Mode</fullscreen-toggler>
+<div id="element1">Element 1 <fullscreen-toggler target="element1">Toggle Element Fullscreen Mode</fullscreen-toggler></div>
+<script type="module">
+
+import { fullscreen } from "../../../src/components/fullscreen.js";
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

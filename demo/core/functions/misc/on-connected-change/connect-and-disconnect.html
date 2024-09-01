@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>onConnectedChange</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">An element connection observer that can track when a HTML element was connected or disconnected.</div>
+<script type="module">
+
+import { createElement, detachElement, onConnectedChange } from "../../../../../src/core/functions/node.js";
+
+const outputElement = createElement("div", { id: "output" });
+document.body.append(outputElement);
+
+const el = createElement("div");
+onConnectedChange(el);
+el.addEventListener("connected", e => {
+    console.log("Connected");
+    outputElement.append(createElement("div", { text: `Element connected` }));
+});
+el.addEventListener("disconnected", e => {
+    console.log("Disconnected");
+    outputElement.append(createElement("div", { text: `Element disconnected` }));
+});
+
+function onNextConnected(el) {
+    const controller = onConnectedChange(el);
+    el.addEventListener("connected", e => {
+        console.log("Connected once");
+        outputElement.append(createElement("div", { text: `Connected once` }));
+        controller.removeObserver();
+    }, { once: true });
+}
+onNextConnected(el);
+
+document.body.append(el);
+setTimeout(() => {
+    detachElement(el);
+    setTimeout(() => {
+        document.body.append(el);
+    }, 1000);
+}, 1000);
+
+</script>
+<script src="../../../../demo.js" type="module"></script>
+</body>
+</html>

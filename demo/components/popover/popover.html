@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Popover</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo.css">
+</head>
+<body>
+<div id="relative">Relative</div>
+<script type="module">
+
+import { Popup } from "../../../src/components/popover.js";
+
+const contents = document.createElement("div");
+contents.append("Lorem ipsum dolor sit amet.");
+const relative = document.getElementById("relative");
+const popup = new Popup(contents, {
+    title: "Hello World!",
+    position: "BL",
+    toggler: relative,
+    relative: relative,
+});
+popup.show();
+
+</script>
+</body>
+</html>

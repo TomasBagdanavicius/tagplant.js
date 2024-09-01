@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Same Goals - Jobs</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Both jobs have the same goals, meaning that when Job 1 finishes (which is a dependency of Job 2), Job 2 will finish immediatelly as well without repeating the tasks.</div>
+<script type="module">
+
+import { Job, Jobs } from "../../../src/process/jobs.js";
+import { simpleDemoTask } from "../../helpers/helpers.js";
+
+const goals1 = { foo: "bar" };
+const goals2 = { baz: "bar" };
+const jobs = new Jobs;
+const job = new Job("job1", simpleDemoTask, { jobs, category: "main", goals: goals1 });
+const job2 = new Job("job2", simpleDemoTask, { jobs, category: "main", goals: goals1 });
+document.body.append(job.toElement());
+document.body.append(job2.toElement());
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

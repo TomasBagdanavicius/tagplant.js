@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Cancelable Promise</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { CancelablePromise } from "../../../../src/core/process/cancelable-promise.js";
+
+function func1() {
+    return new CancelablePromise((resolve, reject) => {
+        setTimeout(() => {
+            reject("Error");
+        }, 2_000);
+    });
+}
+
+func1().then(() => {
+    console.log("OK");
+}).catch(error => {
+    console.error(error);
+}).finally(() => {
+    console.log("Finally");
+});
+
+</script>
+</body>
+</html>

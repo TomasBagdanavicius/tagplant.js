@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Description List Pairs</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { DescriptionListPairs } from "../../../src/element/description-list-pairs.js";
+
+const list = new DescriptionListPairs();
+const element = list.getElement();
+
+/* Append and Prepend */
+const [term1, details1] = list.appendPair("Two", "Du", { name: "two" });
+const [term2, details2] = list.prependPair("One", "Vienas", { name: "one" });
+
+/* Get By Name */
+/* const [term, details] = list.appendPair("One", "Vienas", { name: "one" });
+console.log(list.getByName("one")); */
+
+/* Get By Term */
+/* const [term] = list.appendPair("One", "Vienas", { name: "one" });
+console.log(list.getByTerm(term)); */
+
+/* Get By Details */
+/* const [, details] = list.appendPair("One", "Vienas", { name: "one" });
+console.log(list.getByDetails(details)); */
+
+/* Insert */
+// const [term, details] = list.insertPair("Hello", "World", 1, { name: "hello" });
+
+/* Manual */
+// element.append(createElement("dt", { text: "Title" }), createElement("dd", { text: "Details" }));
+
+/* Invalid Child */
+// element.append(document.createElement("div"));
+
+/* Loner Title */
+// element.append(createElement("dt", { text: "Title" }));
+
+/* Loner Details */
+// element.append(createElement("dd", { text: "Details" }));
+
+/* element.append(
+    document.createElement("div"),
+    createElement("dt", { text: "Title" }),
+    createElement("dd", { text: "Details" })
+); */
+
+/* element.append(
+    createElement("dt", { text: "Title 2" }),
+    createElement("dd", { text: "Details 2" }),
+    createElement("dd", { text: "Details 3" })
+); */
+
+/* console.log(list.getByTerm(term));
+console.log(list.getByDetails(details)); */
+
+document.body.prepend(element);
+
+</script>
+</body>
+</html>

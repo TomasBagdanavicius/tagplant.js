@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Stop - Clock</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Programmatically stops the live clock (it will stop 3 seconds after the page loads).</div>
+<script type="module">
+
+import { Clock } from "../../../src/components/clock.js";
+import { dateTimeFormats } from "../../../var/date-time-formats.js";
+
+const clockPiece = Clock.getPiece(dateTimeFormats.Time24);
+clockPiece.start();
+const elem = clockPiece.toElement();
+document.body.append(elem);
+
+setTimeout(() => {
+    clockPiece.stop();
+}, 3_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

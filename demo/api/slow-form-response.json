@@ -1,0 +1,27 @@
+{
+    "status": 1,
+    "data": {
+        "name": {
+            "type": "string",
+            "required": true,
+            "allow_empty": false,
+            "title": "Name",
+            "value": "John Doe",
+            "description": "Full Name"
+        },
+        "subject": {
+            "type": "string",
+            "title": "Subject",
+            "required": true,
+            "value": "Just a test",
+            "description": "Subject"
+        }
+    },
+    "presentation": "form",
+    "title": "Slow Form Response",
+    "request": {
+        "url": "..\/..\/..\/api\/slow-form-response.php",
+        "title": "Submit"
+    },
+    "request_method": "post"
+}

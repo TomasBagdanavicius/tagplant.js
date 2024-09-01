@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Paging Calculator</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { PagingCalculator } from "../../../../src/core/calculators/paging-calculator.js";
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const calculator = new PagingCalculator({ total: arr.length, perPage: 3, page: 4, autoAdjustPage: true });
+console.log(calculator.offsetStart, calculator.offsetEnd);
+console.log(arr.slice(calculator.offsetStart, calculator.offsetEnd));
+
+calculator.addEventListener("totalchange", e => {
+    const { newTotal, oldTotal } = e.detail;
+    console.log("totalchange", newTotal, oldTotal);
+});
+calculator.addEventListener("pagenumberchange", e => {
+    const { newPageNumber, oldPageNumber } = e.detail;
+    console.log("pagenumberchange", newPageNumber, oldPageNumber);
+});
+calculator.addEventListener("perpagechange", e => {
+    const { newPerPage, oldPerPage } = e.detail;
+    console.log("perpagechange", newPerPage, oldPerPage);
+});
+
+calculator.perPage = 5;
+
+</script>
+</body>
+</html>

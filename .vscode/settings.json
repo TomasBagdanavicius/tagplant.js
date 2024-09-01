@@ -1,0 +1,9 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "files.eol": "\n",
+    "search.exclude": {
+        "node_modules": true,
+        "dist": true,
+        "tmp/bck": true,
+    }
+}

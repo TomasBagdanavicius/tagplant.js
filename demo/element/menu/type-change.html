@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Menu</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Shows how menu type can be changed. In this demo regular menu is transformed into toggling menu.</div>
+<script type="module">
+
+import { Menu } from "../../../src/element/menu.js";
+
+const menu = new Menu({ type: Menu.types.regular, host: document.body });
+menu.appendButton(`Button 1`);
+menu.appendButton(`Button 2`);
+menu.appendToBody();
+
+menu.addEventListener("typechange", e => {
+    const { oldType, newType } = e.detail;
+    console.log("Old type:", oldType);
+    console.log("New type:", newType);
+});
+setTimeout(() => {
+    menu.setType(Menu.types.toggle);
+}, 1_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

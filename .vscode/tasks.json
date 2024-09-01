@@ -1,0 +1,71 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile scripts",
+            "type": "shell",
+            "command": "npm run build",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }, {
+            "label": "Run tests",
+            "type": "shell",
+            "command": "npm test",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }, {
+            "label": "Build and run with Docker",
+            "type": "shell",
+            "command": "./scripts/docker-build-and-run.sh",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }, {
+            "label": "Stop Docker container",
+            "type": "shell",
+            "command": "./scripts/docker-stop-container.sh",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }, {
+            "label": "Empty distribution directory",
+            "type": "shell",
+            "command": "./scripts/empty-dist-directory.sh",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }, {
+            "label": "Delete npm files",
+            "type": "shell",
+            "command": "./scripts/delete-npm-files.sh",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }, {
+            "label": "npm install",
+            "type": "shell",
+            "command": "npm install",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

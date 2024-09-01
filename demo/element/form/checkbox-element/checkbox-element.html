@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Checkbox</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates various states of the checkbox element, which is a custom form element.</div>
+<form method="get" action="">
+    <check-box name="foo" label="Standard Unchecked" description="Lorem ipsum dolor sit amet"></check-box>
+    <check-box name="foo" checked label="Standard Checked" description="Lorem ipsum dolor sit amet"></check-box>
+    <check-box name="foo" checked label="Standard Disabled" description="Lorem ipsum dolor sit amet" disabled></check-box>
+    <check-box name="foo" label="Standard With Controls" description="Lorem ipsum dolor sit amet" controlsmenu="toggle"></check-box>
+    <check-box name="foo" required label="Undetermined" description="Lorem ipsum dolor sit amet" undetermined disabled></check-box>
+    <check-box name="foo" required label="Undetermined With Process" description="Lorem ipsum dolor sit amet" undetermined disabled class="with-process"></check-box>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { CheckBoxElement } from "../../../../src/element/form/checkbox-element.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const checkboxesCollection = document.querySelectorAll("check-box");
+for (const checkbox of checkboxesCollection) {
+    checkbox.setAttribute("stylesheet", userPaths.stylesheets.checkbox);
+}
+
+const collectionWithProcess = document.querySelectorAll(".with-process");
+for (const checkbox of collectionWithProcess) {
+    checkbox.internalFormElement.classList.add("process-running");
+}
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

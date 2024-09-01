@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>From Schema - Article</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Uses the Article component to build and article from special JSON schema.</div>
+<script type="module">
+
+import { headingLevels } from "../../../src/core/functions/enumeration.js";
+import { Article } from "../../../src/element/article.js";
+import { networkRequest } from "../../../src/process/network-request.js";
+import { userPaths } from "../../../var/paths.js";
+
+const url = `${userPaths.project}demo/api/john-doe.json`;
+const request = networkRequest(url, new AbortController, {
+    throwStatusErrors: true
+});
+try {
+    const result = await request;
+    console.log(result);
+    const article = Article.fromSchema(result);
+    article.appendToBody();
+} catch (error) {
+    console.error(error);
+}
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

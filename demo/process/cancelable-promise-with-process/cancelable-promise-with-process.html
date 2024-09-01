@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Cancelable Promise With Process</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo.css">
+</head>
+<body>
+
+<script type="module">
+
+import { CancelablePromiseWithProcess } from "../../../src/process/cancelable-promise-with-process.js";
+
+function func1() {
+    return new CancelablePromiseWithProcess((resolve, reject, process) => {
+        console.log(process);
+        setTimeout(() => {
+            reject("Error");
+        }, 2000);
+    });
+}
+
+func1().then(() => {
+    console.log("OK");
+}).catch(error => {
+    console.error(error);
+}).finally(() => {
+    console.log("Finally");
+});
+
+</script>
+
+</body>
+</html>

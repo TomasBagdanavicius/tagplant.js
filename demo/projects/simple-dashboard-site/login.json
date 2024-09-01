@@ -1,0 +1,54 @@
+{
+    "status": 1,
+    "data": {
+        "email": {
+            "type": "email",
+            "min": 3,
+            "max": 255,
+            "required": true,
+            "title": "Email",
+            "description": "Registered and active email address."
+        },
+        "password": {
+            "type": "string",
+            "min": 8,
+            "max": 100,
+            "title": "Password",
+            "required": true,
+            "description": "Secure login password.",
+            "subtype": "password"
+        },
+        "remember_me": {
+            "type": "boolean",
+            "default": false,
+            "title": "Remember Me",
+            "description": "Whether to save user login for a prolonged period of time."
+        }
+    },
+    "presentation": "form",
+    "title": "Login",
+    "name": "login",
+    "request": {
+        "url": ".\/dashboard.json",
+        "title": "Log In"
+    },
+    "navigation": {
+        "register": {
+            "url": ".\/register.json",
+            "title": "Create Account"
+        },
+        "lost-password": {
+            "url": ".\/lost-password.json",
+            "title": "Lost Password"
+        }
+    },
+    "request_method": "post",
+    "endpoints": {
+        "home": ".\/dashboard.json",
+        "login": ".\/login.json",
+        "logout": ".\/logout.json"
+    },
+    "authentication": {
+        "isAuthenticated": false
+    }
+}

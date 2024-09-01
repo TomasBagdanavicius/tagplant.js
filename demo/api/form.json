@@ -1,0 +1,76 @@
+{
+    "status": 1,
+    "data": {
+        "text": {
+            "type": "string",
+            "min": 3,
+            "max": 255,
+            "required": true,
+            "title": "Text",
+            "description": "Text field."
+        },
+        "email": {
+            "type": "email",
+            "required": true,
+            "title": "Email",
+            "description": "Email field."
+        },
+        "number": {
+            "type": "number",
+            "min": 10,
+            "max": 20,
+            "required": true,
+            "title": "Number",
+            "description": "Number field."
+        },
+        "password": {
+            "type": "password",
+            "min": 8,
+            "max": 25,
+            "title": "Password",
+            "required": true,
+            "description": "Password field."
+        },
+        "search": {
+            "type": "search",
+            "required": true,
+            "title": "Search",
+            "description": "Search field."
+        },
+        "checkbox": {
+            "type": "boolean",
+            "title": "Checkbox",
+            "required": true,
+            "description": "Checkbox button."
+        },
+        "textarea": {
+            "type": "text",
+            "title": "Textarea",
+            "required": true,
+            "description": "Textarea field."
+        },
+        "select": {
+            "type": "integer",
+            "in_set": {
+                "set": {
+                    "1": "Option 1",
+                    "2": "Option 2",
+                    "3": "Option 3",
+                    "4": "Option 4",
+                    "5": "Option 5"
+                },
+                "use_keys": true
+            },
+            "title": "Select list",
+            "required": true,
+            "description": "Select list picker."
+        }
+    },
+    "presentation": "form",
+    "title": "Form",
+    "request": {
+        "url": "http:\/\/localhost\/toolkit\/request.php",
+        "title": "Submit"
+    },
+    "request_method": "post"
+}

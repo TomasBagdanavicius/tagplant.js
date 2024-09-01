@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Form Select Menu</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">A custom form select menu element.</div>
+<form method="get" action="" id="form1">
+    <form-select-menu
+        name="foo"
+        id="form-element"
+        label="My Label"
+        required
+        description="My description."
+        controlsmenu="toggle"
+        controlsfilter="none"
+        ></form-select-menu>
+    <button>Submit</button>
+</form>
+<script type="module">
+
+import { FormSelectMenu } from "../../../../src/element/form/form-select-menu.js";
+import { userPaths } from "../../../../var/paths.js";
+
+const formSelectMenu = document.getElementById("form-element");
+console.log(formSelectMenu);
+for (let i = 1; i <= 5; i++) {
+    formSelectMenu.addOption(`Option ${i}`, i);
+}
+formSelectMenu.menu.addEventListener("changeselectvalue", e => {
+    console.log(e.detail);
+});
+formSelectMenu.setAttribute("stylesheet", userPaths.stylesheets.formElement);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

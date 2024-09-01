@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Revert - Progress Runner</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Demonstrates how the progress runner can revert to its minimum value. In this demo, it progresses to 100% in 10 seconds but reverts to the minimum value after 5 seconds.</div>
+<script type="module">
+
+import { ProgressRunner } from "../../../src/process/progress-runner.js";
+
+const progress = new ProgressRunner;
+document.body.append(progress.toElement());
+
+progress.progressTo(100, 10_000).then(value => {
+    console.log(value);
+});
+setTimeout(() => {
+    progress.revert().then(value => {
+        console.log(value);
+    });
+}, 5_000);
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

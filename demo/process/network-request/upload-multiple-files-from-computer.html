@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Upload Multiple Files From Computer - Network Request</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { standardFilesListFromFileList } from "../../../src/core/network/functions.js";
+import { uploadFiles } from "../../../src/process/network-request.js";
+import { userPaths } from "../../../var/paths.js";
+
+const uploadURL = `${userPaths.project}demo/api/upload.php`;
+const inputEl = createElement("input", {
+    attrs: {
+        type: "file",
+        multiple: "multiple"
+    }
+});
+inputEl.addEventListener("change", async e => {
+    const data = standardFilesListFromFileList(e.target.files);
+    await uploadFiles(uploadURL, data, new AbortController);
+});
+document.body.append(inputEl);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+{
+    "status": 1,
+    "data": {
+        "status": {
+            "type": "integer",
+            "min": 1,
+            "max": 10,
+            "default": 1,
+            "title": "Status",
+            "description": "Status number where 0 - removed, 1 - fully active, >1 - custom statuses."
+        },
+        "title": {
+            "type": "string",
+            "required": true,
+            "max": 200,
+            "searchable": true,
+            "allow_empty": false,
+            "title": "Title",
+            "description": "Official name of the country.",
+            "unique": true
+        },
+        "name": {
+            "type": "string",
+            "alias": "title",
+            "max": 255,
+            "allow_empty": false,
+            "unique": "loose",
+            "tagname": {
+                "separator": "-",
+                "max_length": 255
+            },
+            "charset": "ascii",
+            "searchable": true,
+            "title": "Name",
+            "description": "Canonical country name."
+        },
+        "short_title": {
+            "type": "string",
+            "max": 100,
+            "allow_empty": false,
+            "unique": true,
+            "required": true,
+            "searchable": true,
+            "title": "Short Title",
+            "description": "Common country name."
+        },
+        "iso_3166_1_alpha_2_code": {
+            "type": "string",
+            "min": 2,
+            "max": 2,
+            "unique": true,
+            "required": true,
+            "searchable": true,
+            "charset": "ascii",
+            "title": "ISO 3166 2-Letter Code",
+            "description": "ISO 3166-1 standard two-letter country code."
+        },
+        "iso_3166_1_alpha_3_code": {
+            "type": "string",
+            "min": 3,
+            "max": 3,
+            "unique": true,
+            "required": true,
+            "searchable": true,
+            "charset": "ascii",
+            "title": "ISO 3166 3-Letter Code",
+            "description": "ISO 3166-1 standard three-letter country code."
+        },
+        "iso_3166_1_numeric_code": {
+            "type": "number",
+            "min": 1,
+            "max": 999,
+            "unique": true,
+            "required": true,
+            "searchable": true,
+            "pre_number_format": {
+                "fractional_part_length": 0,
+                "integer_part_group_length": null,
+                "zerofill": 3
+            },
+            "number_format": {
+                "fractional_part_length": 0,
+                "integer_part_group_length": null,
+                "zerofill": 3
+            },
+            "charset": "ascii",
+            "nullable": true,
+            "title": "ISO 3166 Numeric Code",
+            "description": "ISO 3166-1 standard three-digit country code."
+        },
+        "zone_number": {
+            "type": "integer",
+            "min": 1,
+            "max": 9,
+            "nullable": true,
+            "title": "Zone Number",
+            "description": "Zone number (a.k.a common country prefix)."
+        }
+    },
+    "presentation": "form",
+    "title": "Countries",
+    "request": {
+        "url": "",
+        "title": "Create"
+    },
+    "request_method": "post",
+    "bracket_prefix": "data"
+}

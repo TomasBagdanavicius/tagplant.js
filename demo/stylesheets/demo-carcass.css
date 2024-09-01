@@ -1,0 +1,302 @@
+@layer root, normalize, base, type, accessories, style;
+/* Base */
+@layer normalize {
+  :focus-visible {
+    outline: none;
+  }
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+}
+/* Structural Content */
+@layer normalize {
+  p {
+    margin: 0;
+  }
+}
+/* Base */
+@layer base {
+  .demo-settings-bar .menu-regular .light > button, .demo-settings-bar .menu-regular .dark > button, .demo-settings-bar .menu-regular .os > button {
+    --button-y-padding: 0px;
+    overflow: hidden;
+    align-items: flex-start;
+    height: 0;
+    padding: var(--enclosed-height, var(--height)) 0 0;
+  }
+  :focus,
+  :focus-visible {
+    outline: solid 2px var(--accent-color);
+    outline-offset: 1px;
+  }
+  .clickable {
+    cursor: pointer;
+  }
+  .group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+/* Structural Content */
+@layer base {
+  p {
+    margin-bottom: 1em;
+  }
+}
+/* Icon Host */
+@layer accessories {
+  .demo-settings-bar .menu-regular .light > button, .demo-settings-bar .menu-regular .dark > button, .demo-settings-bar .menu-regular .os > button {
+    --icon-width: 32px;
+    --icon-height: 32px;
+    --icon-color: currentColor;
+    --icon-color-alt: var(--accent-color);
+    --icon-width-half: calc(var(--icon-width) / 2);
+    --icon-width-negative: calc(0px - var(--icon-width));
+    --icon-height-half: calc(var(--icon-height) / 2);
+    --icon-height-negative: calc(0px - var(--icon-height));
+    --icon-weight-half: calc(var(--icon-weight) / 2);
+    /* Sides */
+    --icon-weight-side-len: calc(var(--icon-weight) * cos(45deg));
+    position: relative;
+  }
+  .demo-settings-bar .menu-regular .light > button, .demo-settings-bar .menu-regular .dark > button, .demo-settings-bar .menu-regular .os > button {
+    --icon-host-gap-before: 0px;
+    --icon-host-gap-after: 5px;
+    --icon-host-x-padding: calc(var(--icon-width) + var(--icon-host-gap-before) + var(--icon-host-gap-after));
+    --icon-host-y-padding: calc(var(--icon-height) + var(--icon-host-gap-before) + var(--icon-host-gap-after));
+  }
+  .demo-settings-bar .menu-regular .light > button::before, .demo-settings-bar .menu-regular .dark > button::before, .demo-settings-bar .menu-regular .os > button::before {
+    position: absolute;
+  }
+  .demo-settings-bar .menu-regular .light > button, .demo-settings-bar .menu-regular .dark > button, .demo-settings-bar .menu-regular .os > button {
+    --height: var(--icon-height);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* CSS Icons */
+@layer accessories {
+  .demo-settings-bar .menu-regular .light > button, .demo-settings-bar .menu-regular .dark > button, .demo-settings-bar .menu-regular .os > button {
+    --box-width: 50px;
+    --box-height: 50px;
+    --box-border-width: 0px;
+    --icon-weight: 2px;
+    --is-rounded-edges: 1;
+    --box-inner-width: calc(var(--box-width) - var(--box-border-width) * 2);
+    --box-inner-height: calc(var(--box-height) - var(--box-border-width) * 2);
+    --remaining-x-space: calc(var(--box-inner-width) - var(--icon-width));
+    --remaining-x-space-half: calc(var(--remaining-x-space) / 2);
+    --remaining-y-space: calc(var(--box-inner-height) - var(--icon-height));
+    --remaining-y-space-half: calc(var(--remaining-y-space) / 2);
+    --is-rounded-edges-norm: clamp(0, var(--is-rounded-edges), 1);
+    --rounded-edges-by-icon-weight: calc((1 - var(--is-rounded-edges-norm)) * 0px + var(--is-rounded-edges-norm) * var(--icon-weight-half));
+  }
+  .demo-settings-bar .menu-regular .light > button::before, .demo-settings-bar .menu-regular .dark > button::before, .demo-settings-bar .menu-regular .os > button::before, .demo-settings-bar .menu-regular .light > button::after, .demo-settings-bar .menu-regular .dark > button::after, .demo-settings-bar .menu-regular .os > button::after {
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(50% - var(--icon-height-half));
+    left: calc(50% - var(--icon-width-half));
+    z-index: 1;
+    background: var(--icon-color);
+    pointer-events: none;
+    content: "";
+  }
+  .demo-settings-bar .menu-regular .dark > button {
+    --icon-size: 30px;
+    --offset: 12px;
+    --icon-size-half: calc(var(--icon-size) / 2);
+    --icon-width: calc((var(--icon-size) - var(--offset)) / 2 + var(--offset));
+    --icon-height: var(--icon-size);
+    /* Imaginary intersecting double circles. */
+    --double-circle-width: calc(var(--icon-size) + var(--offset));
+  }
+  .demo-settings-bar .menu-regular .dark > button::before {
+    left: calc(50% - ((var(--icon-size) - var(--offset)) / 2 - var(--offset)) / 2);
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: calc(0px - var(--offset)) 0 0 0 var(--icon-color);
+    clip-path: circle(var(--icon-size-half) at calc(var(--icon-size-half) - var(--offset)) var(--icon-size-half));
+  }
+  .demo-settings-bar .menu-regular .os > button {
+    --icon-size: 30px;
+    --icon-width: var(--icon-size);
+    --icon-height: var(--icon-size);
+  }
+  .demo-settings-bar .menu-regular .os > button::before {
+    width: var(--icon-width);
+    height: var(--icon-height);
+    border: solid var(--icon-weight) var(--icon-color);
+    border-radius: 50%;
+    background: transparent;
+  }
+  .demo-settings-bar .menu-regular .os > button::after {
+    width: var(--icon-width-half);
+    height: var(--icon-height);
+    border-radius: var(--icon-height-half) 0 0 var(--icon-height-half);
+  }
+  .demo-settings-bar .menu-regular .light > button {
+    --core-size: 30px;
+    --beam-size: 5px;
+    --icon-gap: 3px;
+    --icon-size: calc(var(--core-size) + var(--beam-size) * 2 + var(--icon-gap) * 2);
+    --icon-width: var(--icon-size);
+    --icon-height: var(--icon-size);
+    --core-size-half: calc(var(--core-size) / 2);
+    --beam-size-half: calc(var(--beam-size) / 2);
+    /* Imaginary circle that pierces through the middle of beams. */
+    --beam-circle-radius: calc(var(--core-size-half) + var(--icon-gap) + var(--beam-size-half));
+    --outer-circle-radius: calc(var(--core-size-half) + var(--icon-gap) + var(--beam-size));
+    --full-core-to-outer: calc(var(--core-size) + var(--icon-gap) + var(--beam-size));
+  }
+  .demo-settings-bar .menu-regular .light > button::before, .demo-settings-bar .menu-regular .light > button::after {
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .demo-settings-bar .menu-regular .light > button::before {
+    top: calc(50% - var(--core-size-half));
+    left: calc(50% - var(--core-size-half));
+    width: var(--core-size);
+  }
+  .demo-settings-bar .menu-regular .light > button:after {
+    left: calc(50% - var(--beam-size-half));
+    width: var(--beam-size);
+    /* Distance from the starting position (90deg) to the center. */
+    --off: calc(var(--beam-size-half) + var(--core-size-half) + var(--icon-gap));
+    --x45: calc(var(--beam-circle-radius) * cos(45deg));
+    --y45: calc(var(--beam-circle-radius) * sin(45deg));
+    --x315: calc(var(--beam-circle-radius) * cos(315deg));
+    --y315: calc(var(--beam-circle-radius) * sin(315deg));
+    --x225: calc(var(--beam-circle-radius) * cos(225deg));
+    --y225: calc(var(--beam-circle-radius) * sin(225deg));
+    --x135: calc(var(--beam-circle-radius) * cos(135deg));
+    --y135: calc(var(--beam-circle-radius) * sin(135deg));
+    box-shadow: var(--x45) calc(var(--off) - var(--y45)), var(--off) var(--off) 0, var(--x315) calc(var(--off) - var(--y315)), 0 calc(var(--core-size) + var(--beam-size) + var(--icon-gap) * 2) 0, var(--x225) calc(var(--off) - var(--y225)), calc(0px - var(--off)) var(--off) 0, var(--x135) calc(var(--off) - var(--y135));
+  }
+}
+/* Root Properties */
+@layer root {
+  :root {
+    color-scheme: light dark;
+    --menu-bg-color: var(--fg-color);
+  }
+  :root[data-theme=dark] {
+    color-scheme: dark;
+    --theme-binary: 0;
+    --contrast: #000;
+    --opposite-contrast: #fff;
+  }
+  :root[data-theme=light] {
+    color-scheme: light;
+    --theme-binary: 1;
+    --contrast: #fff;
+    --opposite-contrast: #000;
+  }
+}
+:root {
+  --settings-bar-height: 60px;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  padding: calc(var(--settings-bar-height) + 2%) 2% 2%;
+}
+
+.demo-description {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: solid 2px var(--ridge-color);
+  background-color: var(--fg-color);
+}
+
+.demo-section {
+  margin: 2em 0;
+}
+
+.demo-section-title {
+  margin: 0 0 1em;
+  padding: 0 0 5px;
+  border-bottom: solid 1px light-dark(#000, #fff);
+  font: clamp(20px, 3vw, 25px)/1.3 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  opacity: 0.75;
+}
+
+.demo-settings-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: var(--settings-bar-height);
+  padding: 10px 2%;
+  background-color: var(--mg-color);
+  border-bottom: solid 1px var(--ridge-color);
+}
+.demo-settings-bar .menu-regular {
+  display: flex;
+}
+.demo-settings-bar .menu-regular .heading {
+  display: none;
+}
+.demo-settings-bar .menu-regular button {
+  --icon-size: 22px;
+  --icon-weight: 2px;
+  all: unset;
+  overflow: hidden;
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+  width: 40px;
+  height: 0;
+  padding: 38px 0 0;
+  border: solid 1px var(--ridge-color);
+  border-radius: 50%;
+  background-color: var(--fg-color);
+  cursor: pointer;
+}
+.demo-settings-bar .menu-regular button[disabled] {
+  background-color: color-mix(in srgb, var(--contrast) 50%, var(--fg-color));
+  color: color-mix(in srgb, var(--color) 50%, var(--contrast));
+  cursor: not-allowed;
+}
+.demo-settings-bar .menu-regular button:not([disabled]):hover {
+  background-color: var(--fg-color-active);
+}
+.demo-settings-bar .menu-regular button:focus, .demo-settings-bar .menu-regular button:focus-visible {
+  outline: solid 2px var(--accent-color);
+  outline-offset: 1px;
+}
+.demo-settings-bar .menu-regular .light > button {
+  --core-size: 12px;
+  --beam-size: 3px;
+  --icon-gap: 2px;
+}
+.demo-settings-bar .menu-regular .dark > button {
+  --offset: 8px;
+}
+.demo-settings-bar .menu-regular .group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*# sourceMappingURL=demo-carcass.css.map */

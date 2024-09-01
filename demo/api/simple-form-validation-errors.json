@@ -1,0 +1,19 @@
+{
+    "status": 0,
+    "title": "Error",
+    "message": "There has been an error",
+    "name": "validation_error",
+    "data": {
+        "name": {
+            "errors": {
+                "customError": "Name is incorrect."
+            }
+        },
+        "subject": {
+            "errors": {
+                "customError": "Subject contains invalid characters.",
+                "tooShort": "Subject must be longer than 50 characters."
+            }
+        }
+    }
+}

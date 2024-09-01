@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Send As Network Request - Form</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<script type="module">
+
+import { Form } from "../../../../src/element/form/form.js";
+import { CustomFormElementsBuilder } from "../../../../src/element/form/custom-form-elements-builder.js";
+import { StandardFormElementsBuilder } from "../../../../src/element/form/standard-form-elements-builder.js";
+import { formMap, formElementMap } from "../../../../var/form-schema-maps.js";
+
+const url = `${userPaths.project}demo/api/simple-form-with-values.json`;
+const response = await fetch(url);
+const schema = await response.json();
+const form = Form.from(schema, formMap, formElementMap, {
+    formElementBuilder: new CustomFormElementsBuilder,
+    // formElementBuilder: new StandardFormElementsBuilder,
+});
+const cancelablePromise = form.sendAsNetworkRequest();
+const result = await cancelablePromise;
+console.log(result);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

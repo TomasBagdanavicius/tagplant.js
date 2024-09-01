@@ -1,0 +1,412 @@
+@layer root, normalize, base, type, accessories, style;
+/* Base */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .heading {
+    font-size: clamp(min(var(--font-size-min), var(--font-size)) * 1px, var(--font-size) * 100 / var(--container-width, 1000) * 1vw, var(--font-size) * 1px);
+  }
+  :focus,
+  :focus-visible {
+    outline: solid 2px var(--accent-color);
+    outline-offset: 1px;
+  }
+  .clickable {
+    cursor: pointer;
+  }
+  .group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+/* Icon Host */
+@layer accessories {
+  .settings-pane .navigation .previous-button, .settings-pane .navigation .next-button {
+    --icon-width: 32px;
+    --icon-height: 32px;
+    --icon-color: currentColor;
+    --icon-color-alt: var(--accent-color);
+    --icon-width-half: calc(var(--icon-width) / 2);
+    --icon-width-negative: calc(0px - var(--icon-width));
+    --icon-height-half: calc(var(--icon-height) / 2);
+    --icon-height-negative: calc(0px - var(--icon-height));
+    --icon-weight-half: calc(var(--icon-weight) / 2);
+    /* Sides */
+    --icon-weight-side-len: calc(var(--icon-weight) * cos(45deg));
+    position: relative;
+  }
+  .settings-pane .navigation .previous-button, .settings-pane .navigation .next-button {
+    --icon-host-gap-before: 0px;
+    --icon-host-gap-after: 5px;
+    --icon-host-x-padding: calc(var(--icon-width) + var(--icon-host-gap-before) + var(--icon-host-gap-after));
+    --icon-host-y-padding: calc(var(--icon-height) + var(--icon-host-gap-before) + var(--icon-host-gap-after));
+  }
+  .settings-pane .navigation .previous-button::before, .settings-pane .navigation .next-button::before {
+    position: absolute;
+  }
+  .settings-pane .navigation .next-button {
+    padding-right: var(--icon-host-x-padding);
+  }
+  .settings-pane .navigation .next-button::before, .settings-pane .navigation .next-button::after {
+    translate: calc(0px - var(--icon-host-gap-before)) 0;
+  }
+  .settings-pane .navigation .previous-button {
+    padding-left: var(--icon-host-x-padding);
+  }
+  .settings-pane .navigation .previous-button::before, .settings-pane .navigation .previous-button::after {
+    translate: var(--icon-host-gap-before) 0;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* CSS Icons */
+@layer accessories {
+  .settings-pane .navigation .previous-button, .settings-pane .navigation .next-button {
+    --box-width: 50px;
+    --box-height: 50px;
+    --box-border-width: 0px;
+    --icon-weight: 2px;
+    --is-rounded-edges: 1;
+    --box-inner-width: calc(var(--box-width) - var(--box-border-width) * 2);
+    --box-inner-height: calc(var(--box-height) - var(--box-border-width) * 2);
+    --remaining-x-space: calc(var(--box-inner-width) - var(--icon-width));
+    --remaining-x-space-half: calc(var(--remaining-x-space) / 2);
+    --remaining-y-space: calc(var(--box-inner-height) - var(--icon-height));
+    --remaining-y-space-half: calc(var(--remaining-y-space) / 2);
+    --is-rounded-edges-norm: clamp(0, var(--is-rounded-edges), 1);
+    --rounded-edges-by-icon-weight: calc((1 - var(--is-rounded-edges-norm)) * 0px + var(--is-rounded-edges-norm) * var(--icon-weight-half));
+  }
+  .settings-pane .navigation .previous-button::before, .settings-pane .navigation .next-button::before, .settings-pane .navigation .previous-button::after, .settings-pane .navigation .next-button::after {
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(50% - var(--icon-height-half));
+    left: calc(50% - var(--icon-width-half));
+    z-index: 1;
+    background: var(--icon-color);
+    pointer-events: none;
+    content: "";
+  }
+  .settings-pane .navigation .next-button::before, .settings-pane .navigation .next-button::after {
+    left: calc(100% - var(--icon-width));
+  }
+  .settings-pane .navigation .previous-button::before, .settings-pane .navigation .previous-button::after {
+    left: 0;
+  }
+  .settings-pane .navigation .previous-button, .settings-pane .navigation .next-button {
+    --wing-length: 20px;
+    --wing-length-side-len: calc(var(--wing-length) * cos(45deg));
+    --wing-inner-length: calc(var(--wing-length) - var(--icon-weight));
+    --wing-inner-length-side-len: calc(var(--wing-inner-length) * cos(45deg));
+  }
+  .settings-pane .navigation .previous-button::before, .settings-pane .navigation .next-button::before, .settings-pane .navigation .previous-button::after, .settings-pane .navigation .next-button::after {
+    border-radius: var(--rounded-edges-by-icon-weight);
+  }
+  .settings-pane .navigation .previous-button, .settings-pane .navigation .next-button {
+    --icon-width: calc(var(--wing-inner-length-side-len) + var(--icon-weight-side-len) * 2);
+    --icon-height: calc(var(--icon-weight-side-len) * 2 + var(--wing-inner-length-side-len) * 2);
+  }
+  .settings-pane .navigation .previous-button::before, .settings-pane .navigation .next-button::before, .settings-pane .navigation .previous-button::after, .settings-pane .navigation .next-button::after {
+    width: var(--wing-length);
+    height: var(--icon-weight);
+  }
+  .settings-pane .navigation .previous-button::before, .settings-pane .navigation .next-button::before {
+    top: 50%;
+  }
+  .settings-pane .navigation .previous-button::after, .settings-pane .navigation .next-button::after {
+    top: calc(50% - var(--icon-weight));
+  }
+  .settings-pane .navigation .next-button::before, .settings-pane .navigation .next-button::after {
+    left: calc(50% - (var(--wing-length) - var(--icon-width-half)));
+  }
+  .settings-pane .navigation .next-button::before {
+    rotate: 45deg;
+    transform-origin: 100% 0;
+  }
+  .settings-pane .navigation .next-button::after {
+    rotate: -45deg;
+    transform-origin: 100% 100%;
+  }
+  .settings-pane .navigation .next-button::before, .settings-pane .navigation .next-button::after {
+    left: calc(100% - (var(--wing-length) - var(--icon-width) + var(--icon-width)));
+  }
+  .settings-pane .navigation .previous-button::before {
+    rotate: -45deg;
+    transform-origin: 0 0;
+  }
+  .settings-pane .navigation .previous-button::after {
+    rotate: 45deg;
+    transform-origin: 0 100%;
+  }
+}
+/* Base */
+@layer normalize {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  button {
+    appearance: none;
+  }
+  :focus-visible {
+    outline: none;
+  }
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+}
+/* Document context */
+@layer normalize {}
+/* Document Context */
+@layer base {
+  html {
+    height: 100%;
+    text-rendering: optimizeSpeed;
+  }
+  body {
+    min-height: 100%;
+    min-width: 320px;
+    background-color: var(--bg-color, #fff);
+    color: var(--color, #000);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    text-size-adjust: none;
+    -webkit-text-size-adjust: 100%;
+  }
+  body:fullscreen {
+    overflow: auto;
+  }
+}
+/* Button */
+@layer normalize {
+  button {
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    vertical-align: top;
+  }
+}
+/* Button */
+@layer base {
+  button,
+  .button {
+    --height: var(--button-height);
+    --enclosed-height: calc(var(--button-height) - var(--button-border-width) * 2);
+    --button-height-half: calc(var(--button-height) / 2);
+    display: inline-flex;
+    gap: 10px;
+    vertical-align: top;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--button-height);
+    padding: var(--button-y-padding) var(--button-x-padding);
+    border: solid var(--button-border-width) var(--button-border-color, rgb(from var(--opposite-contrast) r g b/0.1));
+    border-radius: var(--button-border-radius);
+    background-color: var(--button-bg-color);
+    color: var(--button-color);
+    font: inherit;
+    line-height: 1.2;
+  }
+  .button-active {
+    background-color: var(--button-bg-color-rollover);
+    color: var(--button-color);
+  }
+  button[disabled],
+  .button-disabled {
+    background-color: color-mix(in srgb, var(--contrast) 50%, var(--button-bg-color));
+    color: color-mix(in srgb, var(--button-color) 50%, var(--contrast));
+    cursor: not-allowed;
+  }
+  @media (hover: hover) {
+    .button-hover, .button:not(.button-disabled):hover,
+    button:not([disabled]):hover {
+      background-color: var(--button-bg-color-rollover);
+      color: var(--button-color);
+      cursor: pointer;
+    }
+  }
+}
+/* Button */
+@layer type {
+  .button-danger {
+    --button-bg-color: var(--danger-color);
+    --button-bg-color-rollover: hsl(from var(--button-bg-color) h s calc(l - 10));
+    --button-color: #fff;
+  }
+  .button-danger:focus, .button-danger:focus-visible {
+    outline-color: var(--danger-color);
+  }
+  .button-accent {
+    --button-bg-color: var(--accent-color);
+    --button-bg-color-rollover: hsl(from var(--button-bg-color) h s calc(l - 10));
+    --button-color: #fff;
+  }
+}
+/* Heading */
+@layer normalize {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    font: inherit;
+  }
+}
+/* Heading */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .heading {
+    display: block;
+    margin: 1em 0 0.5em;
+    font-weight: 700;
+    font-family: var(--heading-font-family);
+    line-height: 1.3;
+  }
+  h1 {
+    --font-size: 40;
+    --font-size-min: 35;
+  }
+  h2 {
+    --font-size: 35;
+    --font-size-min: 30;
+  }
+  h3 {
+    --font-size: 30;
+    --font-size-min: 25;
+  }
+  h4 {
+    --font-size: 25;
+    --font-size-min: 20;
+  }
+  h5 {
+    --font-size: 20;
+    --font-size-min: 16;
+  }
+  h6 {
+    --font-size: 16;
+    --font-size-min: 14;
+  }
+}
+/* Root Properties */
+@layer root {
+  :root {
+    color-scheme: light dark;
+    --container-width: 850;
+    --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --font-size: 14px;
+    --line-height: 1.3571428571;
+    --accent-color: #4169e1;
+    --accent-color-active: #214cce;
+    --danger-color: #f93a37;
+    --danger-color-active: #f60b07;
+    --success-color: #129745;
+    --success-color-active: #0d6930;
+    --button-height: 40px;
+    --button-bg-color: var(--fg-color);
+    --button-bg-color-rollover: var(--fg-color-active);
+    --button-color: var(--color);
+    --button-border-width: 1px;
+    --button-border-radius: 5px;
+    --button-x-padding: 20px;
+    --button-y-padding: 5px;
+    --button-transition-speed: 0.15s;
+    --heading-font-family: inherit;
+  }
+  :root[data-theme=dark] {
+    color-scheme: dark;
+    --theme-binary: 0;
+    --contrast: #000;
+    --opposite-contrast: #fff;
+    --bg-color: #212121;
+    --mg-color: #171717;
+    --mg-color-active: #1c1c1c;
+    --fg-color: #2f2f2f;
+    --fg-color-active: #3a3a3a;
+    --ridge-color: #444;
+    --color: #fff;
+    --details-color: #888;
+  }
+  :root[data-theme=light] {
+    color-scheme: light;
+    --theme-binary: 1;
+    --contrast: #fff;
+    --opposite-contrast: #000;
+    --bg-color: #fff;
+    --mg-color: #f9f9f9;
+    --mg-color-active: #ededed;
+    --fg-color: #fff;
+    --fg-color-active: #eee;
+    --ridge-color: #e5e5e5;
+    --color: #121212;
+    --details-color: #7d7d7d;
+  }
+}
+.settings-pane {
+  position: fixed;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  height: 60px;
+  padding: 10px 2%;
+  border-bottom: solid 1px var(--ridge-color);
+  background-color: var(--mg-color);
+}
+.settings-pane .title {
+  --font-size: 25;
+  --font-size-min: 20;
+  flex: 1 1 auto;
+  overflow: hidden;
+  min-width: 0;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.settings-pane .navigation {
+  flex: 0 1 auto;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+.settings-pane .navigation button {
+  --icon-host-gap-before: 20px;
+  --icon-host-gap-after: 7px;
+  --wing-length: 10px;
+}
+iframe {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 60px);
+  border: 0;
+}
+
+/*# sourceMappingURL=demo-slides.css.map */

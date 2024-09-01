@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Abstract - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo.css">
+</head>
+<body>
+<script type="module">
+
+import { createSimpleButton } from "../../../../src/core/functions/node.js";
+import { AbstractListing } from "../../../../src/element/listing/abstract-listing.js";
+
+const listing = new AbstractListing("Abstract Listing", {
+    itemBindings: ({ item, element, controls: { remove: removeController } }) => {
+        if (removeController) {
+            item.append(removeController.button);
+        }
+    }
+});
+const [item, key] = listing.appendItemFromElement("Hello World!");
+listing.appendItemFromElement("Lorem ipsum");
+document.body.prepend(listing.element);
+
+const button = createSimpleButton("Add");
+document.body.append(button);
+button.addEventListener("click", () => {
+    listing.appendItemFromElement("Lorem ipsum");
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Demo Slides</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="stylesheets/demo-slides.css">
+</head>
+<body>
+<script>
+    const locations = [
+        // Store Listing
+        { title: "Store Listing", url: "element/listing/store-listing/store-listing.html" },
+        { title: "Store Listing Select Items", url: "element/listing/store-listing/select-items.html" },
+        { title: "Store Listing Extended Paging Landmark", url: "element/listing/store-listing/extended-paging-landmark.html" },
+        { title: "Store Listing With Head", url: "element/listing/store-listing/with-head.html" },
+        { title: "Store Listing Adding to Store When Search Defined", url: "element/listing/store-listing/add-to-store-when-search-defined.html" },
+        { title: "Store Listing From Array", url: "element/listing/store-listing/array.html" },
+        { title: "Store Listing From Pairs", url: "element/listing/store-listing/as-pairs.html" },
+        { title: "Store Listing Custom Controls", url: "element/listing/store-listing/custom-controls.html" },
+        { title: "Store Listing Custom Delete Entries Messages", url: "element/listing/store-listing/custom-delete-entries-messages.html" },
+        { title: "Store Listing Custom Delete Entries Notifier", url: "element/listing/store-listing/custom-delete-entries-notifier.html" },
+        { title: "Store Listing From Map", url: "element/listing/store-listing/from-map.html" },
+        { title: "Store Listing Hyperlink Paging", url: "element/listing/store-listing/hyperlink-navigation.html" },
+        { title: "Store Listing Item Actions", url: "element/listing/store-listing/item-actions.html" },
+        { title: "Store Listing Set Custom Search Params", url: "element/listing/store-listing/set-search-params.html" },
+        { title: "Store Listing Stream", url: "element/listing/store-listing/stream.html" },
+        { title: "Store Listing URL Query", url: "element/listing/store-listing/url-query.html" },
+        // Site Notifications
+        { title: "Site Notifications", url: "components/site-notifications/site-notifications.html" },
+        { title: "Site Notifications Extra Params", url: "components/site-notifications/params.html" },
+        { title: "Site Notifications Group Match", url: "components/site-notifications/group-match.html" },
+        { title: "Site Notifications Archive Listing", url: "components/site-notifications/archive-listing.html" },
+        { title: "Site Notifications Broadcast", url: "components/site-notifications/broadcast.html" },
+        { title: "Site Notifications Listing In Chunks", url: "components/site-notifications/listing-chunks.html" },
+        { title: "Site Notifications Session Storage", url: "components/site-notifications/session-storage.html" },
+        // Clock
+        { title: "Clock", url: "components/clock/clock.html" },
+        { title: "Clock Change Format and Locale", url: "components/clock/change-format-and-locale.html" },
+        { title: "Clock HTML Format", url: "components/clock/html-format.html" },
+        { title: "Clock On Time", url: "components/clock/on-time.html" },
+        { title: "Clock Stop", url: "components/clock/stop.html" },
+        // Clock Feature
+        { title: "Clock Feature", url: "components/clock-feature/clock-feature.html" },
+        { title: "Clock Feature Events", url: "components/clock-feature/events.html" },
+        { title: "Clock Feature Indexed DB Controller", url: "components/clock-feature/indexed-db-controller.html" },
+        { title: "Clock Feature Local Storage Controller", url: "components/clock-feature/local-storage-controller.html" },
+        { title: "Clock Feature Multiple Controls", url: "components/clock-feature/multiple-controls.html" },
+        { title: "Clock Feature Notifications", url: "components/clock-feature/notifications.html" },
+        // Color Mode
+        { title: "Color Mode", url: "components/color-mode/color-mode.html" },
+        { title: "Color Mode API Controller", url: "components/color-mode/api-controller.html" },
+        { title: "Color Mode Events", url: "components/color-mode/events.html" },
+        { title: "Color Mode Indexed DB Controller", url: "components/color-mode/indexed-db-controller.html" },
+        { title: "Color Mode Local Storage Controller", url: "components/color-mode/local-storage-controller.html" },
+        { title: "Color Mode Multiple Controls", url: "components/color-mode/multiple-controls.html" },
+        { title: "Color Mode Notifications", url: "components/color-mode/notifications.html" },
+        // Fullscreen
+        { title: "Fullscreen", url: "components/fullscreen/fullscreen.html" },
+        { title: "Fullscreen Target Element", url: "components/fullscreen/target-element.html" },
+        { title: "Fullscreen Mixed", url: "components/fullscreen/mixed.html" },
+        { title: "Fullscreen Exit Previous State", url: "components/fullscreen/exit-previous-state.html" },
+        { title: "Fullscreen Notifications", url: "components/fullscreen/notifications.html" },
+        // Background Style
+        { title: "Background Style", url: "components/background-style/background-style.html" },
+        // Functions
+        { title: "Resize Image", url: "core/functions/image/resize-image.html" },
+        { title: "Element Connect and Disconnect", url: "core/functions/misc/on-connected-change/connect-and-disconnect.html" },
+        // Dialog
+        { title: "Dialog", url: "element/custom-elements/dialog/dialog.html" },
+        // Notification Status
+        { title: "Notification Status", url: "element/custom-elements/notification-status/notification-status.html" },
+        // Article
+        { title: "Article", url: "element/article/article.html" },
+        { title: "Article From Schema", url: "element/article/from-schema.html" },
+        // Checkbox
+        { title: "Checkbox", url: "element/form/checkbox-element/checkbox-element.html" },
+        { title: "Checkbox and Process", url: "element/form/checkbox-element/classic-checkbox-and-process.html" },
+        { title: "Checkbox Undetermined State", url: "element/form/checkbox-element/undetermined-state.html" },
+        // Custom Form Element
+        { title: "Custom Form Element", url: "element/form/custom-form-element/custom-form-element.html" },
+        { title: "Custom Form Element Controls", url: "element/form/custom-form-element/controlslist.html" },
+        { title: "Custom Form Element Custom Constraint", url: "element/form/custom-form-element/custom-constraint.html" },
+        { title: "Custom Form Element Custom Error", url: "element/form/custom-form-element/custom-error.html" },
+        { title: "Custom Form Element Email Form Element", url: "element/form/custom-form-element/email-form-element.html" },
+        { title: "Custom Form Element Form Select Menu", url: "element/form/custom-form-element/form-select-menu.html" },
+        { title: "Custom Form Element Match Value Constraint", url: "element/form/custom-form-element/match-value-constraint.html" },
+        { title: "Custom Form Element Number Form Element", url: "element/form/custom-form-element/number-form-element.html" },
+        { title: "Custom Form Element Password Form Element", url: "element/form/custom-form-element/password-form-element.html" },
+        { title: "Custom Form Element Reference Select", url: "element/form/custom-form-element/reference-select.html" },
+        { title: "Custom Form Element Search Form Element", url: "element/form/custom-form-element/search-form-element.html" },
+        { title: "Custom Form Element Textarea Form Element", url: "element/form/custom-form-element/textarea-form-element.html" },
+        // Form
+        { title: "Form", url: "element/form/form/form.html" },
+        { title: "Form Clear", url: "element/form/form/clear.html" },
+        { title: "Form Custom Errors", url: "element/form/form/custom-errors.html" },
+        { title: "Form Create", url: "element/form/form/default-create-form.html" },
+        { title: "Form Slow Output", url: "element/form/form/slow-output.html" },
+        // Group
+        { title: "Group", url: "element/group/group.html" },
+        { title: "Group Chunks", url: "element/group/chunks.html" },
+        { title: "Group Custom Member Builder", url: "element/group/custom-builder.html" },
+        { title: "Group Custom Element Builder", url: "element/group/custom-element-builder.html" },
+        { title: "Group Detach/Reattach Member", url: "element/group/detach-reattach-member.html" },
+        { title: "Group Searchable Element", url: "element/group/searchable-element.html" },
+        // Image Preview
+        { title: "Image Preview", url: "element/image-preview/image-preview.html" },
+        { title: "Image Preview Set Image", url: "element/image-preview/set-image.html" },
+        { title: "Image Preview Set Image and Cancel", url: "element/image-preview/set-image-and-cancel.html" },
+        { title: "Image Preview Set Image and Upload", url: "element/image-preview/set-image-and-upload.html" },
+        { title: "Image Preview Download and Set Image", url: "element/image-preview/download-and-set-image.html" },
+        { title: "Image Preview Download and Upload", url: "element/image-preview/download-and-upload.html" },
+        // List
+        { title: "List", url: "element/list/list.html" },
+        // Menu
+        { title: "Menu Regular", url: "element/menu/menu.html" },
+        { title: "Menu Toggle", url: "element/menu/toggle.html" },
+        { title: "Menu Longpress", url: "element/menu/longpress.html" },
+        { title: "Menu Type Change", url: "element/menu/type-change.html" },
+        // Jobs
+        { title: "Jobs", url: "process/jobs/jobs.html" },
+        { title: "Jobs", url: "process/jobs/listing.html" },
+        { title: "Jobs", url: "process/jobs/same-goals.html" },
+        { title: "Jobs", url: "process/jobs/track-criteria.html" },
+        // Process
+        { title: "Process", url: "process/process/process.html" },
+        { title: "Process Wrap Around Promise", url: "process/process/wrap-around-promise.html" },
+        { title: "Process Wrap Around Promise Series", url: "process/process/wrap-around-promise-series.html" },
+        // Processes Log
+        { title: "Processes Log", url: "process/processes-log/processes-log.html" },
+        // Progress Runner
+        { title: "Progress Runner", url: "process/progress-runner/progress-runner.html" },
+        { title: "Progress Runner Progress Plan", url: "process/progress-runner/progress-plan.html" },
+        { title: "Progress Runner Revert", url: "process/progress-runner/revert.html" },
+    ];
+    let currentIndex = 0;
+    const iframe = document.createElement("iframe");
+    const pane = document.createElement("div");
+    pane.classList.add("settings-pane");
+    const navigationMenu = document.createElement("menu");
+    navigationMenu.classList.add("navigation");
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "Next";
+    nextButton.classList.add("next-button");
+    const previousButton = document.createElement("button");
+    previousButton.textContent = "Previous";
+    previousButton.classList.add("previous-button");
+    navigationMenu.append(previousButton, nextButton);
+    const title = document.createElement("h1");
+    title.classList.add("title");
+    const pageCounter = document.createElement("div");
+    pageCounter.classList.add("page-counter");
+    pane.append(title, pageCounter, navigationMenu);
+    document.body.append(pane, iframe);
+    function loadLocation(index) {
+        title.textContent = locations[index]["title"];
+        const randomQueryString = `?${Math.random().toString(36).substr(2, 9)}`;
+        iframe.src = locations[index]["url"] + randomQueryString;
+        history.pushState(null, "", `?slide=${index}`);
+        pageCounter.innerText = `${index + 1}/${locations.length}`;
+        if (index === 0) {
+            previousButton.style.display = "none";
+        } else {
+            previousButton.style.display = "block";
+        }
+        if (index === locations.length - 1) {
+            nextButton.style.display = "none";
+        } else {
+            nextButton.style.display = "block";
+        }
+    }
+    nextButton.addEventListener("click", () => {
+        if (currentIndex < locations.length - 1) {
+            currentIndex++;
+            loadLocation(currentIndex);
+        }
+    });
+    previousButton.addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            loadLocation(currentIndex);
+        }
+    });
+    function getSlideIndexFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const slideIndex = parseInt(params.get("slide"));
+        return isNaN(slideIndex) ? 0 : slideIndex;
+    }
+    // On page load, determine which slide to show based on the URL
+    window.addEventListener("load", () => {
+        currentIndex = getSlideIndexFromUrl();
+        loadLocation(currentIndex);
+    });
+    // Handle the back/forward navigation
+    window.addEventListener("popstate", () => {
+        currentIndex = getSlideIndexFromUrl();
+        loadLocation(currentIndex);
+    });
+</script>
+<script type="module">
+    import { colorMode } from "../src/components/color-mode.js";
+    const storeController = colorMode.defaultLocalStorageStoreController;
+    storeController.key = "demoColorMode";
+    colorMode.setCustomStoreController(storeController, { apply: true });
+    </script>
+</body>
+</html>

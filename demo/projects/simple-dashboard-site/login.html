@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css" class="persistent">
+</head>
+<body>
+<script type="module">
+
+import { createElement } from "../../../src/core/functions/node.js";
+import { Form } from "../../../src/element/form/form.js";
+import { notificationsCenter } from "../../../src/components/site-notifications.js";
+import { Site } from "../../../src/site/site.js";
+import { Presentation } from "../../../src/site/presentation.js";
+import { BackgroundProcessesTemplate } from "../../../src/site/templates/background-processes-template.js";
+import { GuestAreaTemplate } from "./templates/guest-area-template.js";
+import { UserAreaTemplate } from "./templates/user-area-template.js";
+import { userPaths } from "../../../var/paths.js";
+
+document.addEventListener("determinetemplate", e => {
+    const { payload } = e.detail;
+    let template;
+    if (!payload.data.authentication.isAuthenticated) {
+        template = new GuestAreaTemplate(payload.data);
+    } else {
+        template = new UserAreaTemplate(payload.data);
+    }
+    payload.result = template;
+});
+document.addEventListener("newpresentation", e => {
+    const { presentation } = e.detail;
+    const template = presentation.template;
+    if (template instanceof GuestAreaTemplate) {
+        const userStyleLink = document.querySelector("head > link.user");
+        if (userStyleLink) {
+            userStyleLink.remove();
+        }
+        const guestStyleLink = createElement("link", {
+            classes: ["guest"],
+            attrs: {
+                rel: "stylesheet",
+                href: `${userPaths.stylesheetsURL}demo-guest-area.min.css`,
+            }
+        });
+        document.head.append(guestStyleLink);
+    } else {
+        const guestStyleLink = document.querySelector("head > link.guest");
+        if (guestStyleLink) {
+            guestStyleLink.remove();
+        }
+        const userStyleLink = createElement("link", {
+            classes: ["user"],
+            attrs: {
+                rel: "stylesheet",
+                href: `${userPaths.stylesheetsURL}demo-user-area.min.css`,
+            }
+        });
+        document.head.append(userStyleLink);
+    }
+});
+document.addEventListener("afterschematoelementrepresentative", e => {
+    const { elementRepresentative } = e.detail.payload;
+    if (elementRepresentative instanceof Form) {
+        elementRepresentative.element.classList.add("login-form");
+    }
+});
+
+function startPresentation(template) {
+    const presentation = new Presentation(document, template);
+    presentation.start();
+    Site.registerTemplateHashes(template);
+}
+const backgroundProcessesTemplate = new BackgroundProcessesTemplate({ notificationsCenter });
+startPresentation(backgroundProcessesTemplate);
+
+Site.init({
+    supportsAuthentication: true,
+});
+
+</script>
+<script id="landing-data" type="application/json">
+{
+    "status": 1,
+    "data": {
+        "email": {
+            "type": "email",
+            "min": 3,
+            "max": 255,
+            "required": true,
+            "title": "Email",
+            "description": "Registered and active email address."
+        },
+        "password": {
+            "type": "string",
+            "min": 8,
+            "max": 100,
+            "title": "Password",
+            "required": true,
+            "description": "Secure login password.",
+            "subtype": "password"
+        },
+        "remember_me": {
+            "type": "boolean",
+            "default": false,
+            "title": "Remember Me",
+            "description": "Whether to save user login for a prolonged period of time."
+        }
+    },
+    "presentation": "form",
+    "title": "Login",
+    "name": "login",
+    "request": {
+        "url": ".\/dashboard.json",
+        "title": "Log In"
+    },
+    "navigation": {
+        "register": {
+            "url": ".\/register.json",
+            "title": "Create Account"
+        },
+        "lost-password": {
+            "url": ".\/lost-password.json",
+            "title": "Lost Password"
+        }
+    },
+    "request_method": "post",
+    "endpoints": {
+        "home": ".\/dashboard.json",
+        "login": ".\/login.json",
+        "logout": ".\/logout.json"
+    },
+    "authentication": {
+        "isAuthenticated": false
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+:root:fullscreen {
+    border: dashed 3px blue;
+}
+body:fullscreen {
+    border: dashed 3px red;
+}
+#element1:fullscreen {
+    border: dashed 3px orange;
+}
+fullscreen-toggler[status="on"] {
+    outline: solid 2px royalblue;
+}

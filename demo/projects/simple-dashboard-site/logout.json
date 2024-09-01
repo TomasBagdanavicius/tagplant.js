@@ -1,0 +1,21 @@
+{
+    "status": 1,
+    "message": "You have been successfully logged out.",
+    "presentation": "article",
+    "title": "Logged Out",
+    "name": "logout",
+    "navigation": {
+        "login": {
+            "url": ".\/login.json",
+            "title": "Log In Again"
+        }
+    },
+    "endpoints": {
+        "home": ".\/dashboard.json",
+        "login": ".\/login.json",
+        "logout": ".\/logout.json"
+    },
+    "authentication": {
+        "isAuthenticated": false
+    }
+}

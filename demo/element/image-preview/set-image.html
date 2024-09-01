@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Set Image - Image Preview</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../stylesheets/demo-persistent.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="demo-description">Sets an image to designated area programmatically.</div>
+<script type="module">
+
+import { bodyArea } from "../../helpers/body-area.js";
+import { ImagePreview } from "../../../src/element/image-preview.js";
+import { siteNotificationsEl } from "../../helpers/site-notifications.js";
+import { userPaths } from "../../../var/paths.js";
+
+const imagePreview = new ImagePreview;
+imagePreview.appendToBody();
+
+const url = `${userPaths.project}demo/material/images/1000x1000_Earth.jpg`;
+const response = await fetch(url);
+const blob = await response.blob();
+imagePreview.setImage(blob, "The Earth").then(image => {
+    console.log(image);
+}).catch(error => {
+    console.error(error);
+});
+
+</script>
+<script src="../../demo.js" type="module"></script>
+</body>
+</html>

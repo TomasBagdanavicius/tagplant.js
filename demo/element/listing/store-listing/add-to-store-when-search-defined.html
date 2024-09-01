@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">A new item is programmatically added to the listing while search query is defined.</div>
+<script type="module">
+
+import { ArrayStoreManager } from "../../../../src/core/store/array-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+import { items } from "../items-short.js";
+
+const store = new ArrayStoreManager(items);
+const listing = new StoreListing(store, "Store Listing", {
+    format: "chunks",
+    searchable: true,
+    keyAsDataId: true,
+    searchParams: {
+        perPage: 5
+    },
+    perPageValues: [5, 10, 25, 50, 100],
+    sortValues: { name: "Name", age: "Age" },
+});
+document.body.append(listing.element);
+
+const orderMenu = listing.createControlBySearchParam("order");
+orderMenu?.appendTo(listing.footer);
+const sortMenu = listing.createControlBySearchParam("sort");
+sortMenu?.appendTo(listing.footer);
+const perPageMenu = listing.releasePerPageMenu();
+perPageMenu?.appendTo(listing.footer);
+
+const appliedParams = await listing.setSearchParams({
+    search: "w",
+});
+
+setTimeout(() => {
+    // Should not be visible when search query is active
+    store.add({ name: "Glen", age: 33 });
+    // Should be always visible
+    store.add({ name: "William", age: 38 });
+}, 1_000);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<title>As Pairs - Store - Listing</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+<link rel="stylesheet" href="../../../stylesheets/demo-carcass.css">
+<link rel="stylesheet" href="../../../stylesheets/demo-persistent.min.css">
+</head>
+<body>
+<div class="demo-description">Builds the listing from array pairs, which allows to define not just the values, but also the keys for each item.</div>
+<script type="module">
+
+import { ArrayPairsStoreManager } from "../../../../src/core/store/array-pairs-store-manager.js";
+import { StoreListing } from "../../../../src/element/listing/store-listing.js";
+import { Group } from "../../../../src/element/group.js";
+
+const arrayPairs = [
+    [1, "One"],
+    [2, "Two"],
+    [3, "Three"],
+    [4, "Four"],
+    [5, "Five"],
+];
+const groupMemberBuilder = Group.defaultMemberBuilder;
+groupMemberBuilder.textElementWrapper = "div";
+const store = new ArrayPairsStoreManager(arrayPairs);
+const listing = new StoreListing(store, "Store Listing", {
+    searchable: true,
+    keyAsDataId: true,
+    searchParams: {
+        perPage: 10
+    },
+    perPageValues: [10, 25, 50, 100],
+    useURLQuery: true,
+    groupMemberBuilder: groupMemberBuilder,
+});
+document.body.append(listing.element);
+
+const orderMenu = listing.createControlBySearchParam("order");
+orderMenu?.appendTo(listing.footer);
+const sortMenu = listing.createControlBySearchParam("sort");
+sortMenu?.appendTo(listing.footer);
+const perPageMenu = listing.releasePerPageMenu();
+perPageMenu?.appendTo(listing.footer);
+
+</script>
+<script src="../../../demo.js" type="module"></script>
+</body>
+</html>
