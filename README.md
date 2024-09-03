@@ -4,6 +4,8 @@ Tagplant.js is a modular vanilla JavaScript framework and code library. It lever
 
 > **Note:** Comprehensive documentation is not yet available. However, you can view live examples and web slides at: https://www.lwis.net/tagplant.js/demo/slides.html
 
+With Tagplant.js, you can: (a) create data grids with pagination, sorting, and filtering using stored or API-driven data; (b) use helpers to build custom web elements; (c) dynamically construct forms with both standard and custom elements; (d) display notification toasts; (e) implement simple menus; (f) enable theme switching; (g) leverage web workers for resource-intensive tasks like image resizing, real-time clocks, and time-ago features; (h) manage fullscreen mode; (i) use a library of unique functions; and much more.
+
 ## Quick Start
 
 - Download or clone the repository files. If you already have an HTTP server set up, consider copying the files into the server's document directory. Otherwise, you will be able to use the provided [Docker options](#starting-the-web-application-using-docker) to get started.
