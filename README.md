@@ -2,6 +2,8 @@
 
 Tagplant.js is a modular vanilla JavaScript framework and code library. It leverages ES modules to organize the code, allowing you to use JavaScript bundlers to extract and build only the parts you need for your application. While primarily designed for web applications, Tagplant.js is versatile enough to support the development of other systems that require JavaScript as well.
 
+> **Note:** Comprehensive documentation is not yet available. However, you can view live examples and web slides at: https://www.lwis.net/tagplant.js/demo/slides.html
+
 ## Quick Start
 
 - Download or clone the repository files. If you already have an HTTP server set up, consider copying the files into the server's document directory. Otherwise, you will be able to use the provided [Docker options](#starting-the-web-application-using-docker) to get started.
