@@ -187,7 +187,7 @@ export const ListingWithSelectableItems = ({ parentConstructor } = {}) => {
             return button;
         }
         releaseControlsMenu({ headingText = "Select Items", includeDeleteSelected = false } = {}) {
-            const menu = new Menu({ headingText });
+            const menu = new Menu({ headingText, classes: ["select-items-menu"] });
             menu.append(this.releaseSelectAllItemsControl(), "select-all");
             menu.append(this.releaseDeselectAllItemsControl(), "deselect-all");
             if (includeDeleteSelected) {

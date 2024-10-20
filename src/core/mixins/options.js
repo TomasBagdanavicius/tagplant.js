@@ -1,18 +1,20 @@
 "use strict";
 
-export const OptionsMixin = ({ parentConstructor } = {}) => {
+import { isIterable } from "../functions/misc.js";
+
+export const OptionsMixin = ({ parentConstructor = Object } = {}) => {
     const Mixin = class extends parentConstructor {
         static #defaultOptions;
         #userOptions;
         #options;
         constructor(args, defaultOptions, options) {
-            super(...args);
+            super(...(isIterable(args) ? args : []));
             Mixin.#defaultOptions = defaultOptions;
             this.#userOptions = options;
             this.#options = { ...defaultOptions, ...options };
         }
         get options() {
-            return Object.assign({}, this.#options);
+            return { ...this.#options };
         }
         get defaultOptions() {
             return Mixin.defaultOptions;
@@ -21,7 +23,7 @@ export const OptionsMixin = ({ parentConstructor } = {}) => {
             return this.#userOptions;
         }
         static get defaultOptions() {
-            return Object.assign({}, Mixin.#defaultOptions);
+            return { ...Mixin.#defaultOptions };
         }
         getOption(name) {
             return this.#options[name];

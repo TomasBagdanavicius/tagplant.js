@@ -366,9 +366,10 @@ export const Site = (() => {
         const content = component.featureContent;
         if (content instanceof Form) {
             content.sendOnSubmit = true;
+            const originalURL = content.url;
             content.addEventListener("output", e => {
                 const { payload } = e.detail;
-                manager.setMain(content.url, payload);
+                manager.setMain(originalURL, payload);
             });
         }
     }
@@ -737,7 +738,6 @@ export const Site = (() => {
                 }
             }
             const requestURL = new URL(url);
-            requestURL.searchParams.set("format", "json");
             options.throwStatusErrors = true;
             options.trackDownloadProgress = false;
             options.processCategory = "main";
@@ -898,8 +898,8 @@ export const Site = (() => {
                 template = determineTemplateFromSchema(landingPayload);
             } else {
                 template = new templateConstructor(landingPayload);
-                registerTemplateHashes(template);
             }
+            registerTemplateHashes(template);
             endPresentation();
             const [newPresentation, stateParams] = buildPresentation(template, landingPayload);
             updateState(stateParams);

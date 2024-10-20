@@ -49,7 +49,11 @@ export async function savedUsers(storeName, itemTemplate) {
             username: "Username",
         },
         includeMenu: {
-            manage: { title: "Manage Saved Users", popupTitle: "Saved Users" }
+            manage: {
+                title: "Manage Saved Users",
+                popupTitle: "Saved Users",
+                classes: ["saved-users-popup"]
+            }
         },
         searchable: true,
         itemTemplate,

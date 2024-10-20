@@ -66,7 +66,6 @@ export class BackgroundProcessesTemplate extends OptionsMixin({ parentConstructo
                     notificationsPopup = createPopup(listing.element, "Notifications", ["notifications-popup"]);
                     listing.element.classList.add("listing-notifications");
                     const controlsMenu = listing.releaseControlsMenu({ includeDeleteSelected: true });
-                    controlsMenu.element.classList.add("select-items");
                     controlsMenu.appendTo(listing.footer);
                     notificationsPopup.show();
                 },

@@ -17,12 +17,7 @@ export const colorModeIndexedDBStoreController = {
     },
     async save(value, { signal } = {}) {
         validateEnumMember(value, "colorModes");
-        try {
-            await landingDatabaseManager.saveValue("settings", "colorMode", { value: value.name }, { signal });
-            return value;
-        } catch (error) {
-            throw error;
-        }
+        return await landingDatabaseManager.saveValue("settings", "colorMode", { value: value.name }, { signal });
     }
 }
 

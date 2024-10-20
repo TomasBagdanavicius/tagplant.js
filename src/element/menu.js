@@ -144,6 +144,7 @@ export class Menu extends ElementRepresentative {
                 this.dispatchEvent(new CustomEvent("changeselectvalue", {
                     detail: { oldValue, newValue: this.headingText, oldKey, newKey: key }
                 }));
+                this.#selectedData = { value: this.headingText, key };
             }
         });
     }
@@ -254,21 +255,23 @@ export class Menu extends ElementRepresentative {
         if (this.selectValue) {
             const button = this.getButton(key);
             if (button) {
-                const oldValue = this.headingText;
+                const { value: oldValue, key: oldKey } = this.#selectedData;
                 this.headingText = button.innerText;
                 this.dispatchEvent(new CustomEvent("changeselectvalue", {
-                    detail: { oldValue, newValue: this.headingText }
+                    detail: { oldValue, newValue: this.headingText, oldKey, newKey: key }
                 }));
+                this.#selectedData = { value: this.headingText, key };
             }
         }
     }
     resetSelect() {
         if (this.selectValue) {
-            const oldValue = this.headingText;
+            const { value: oldValue, key: oldKey } = this.#selectedData;
             this.headingText = this.#originalHeadingText;
             this.dispatchEvent(new CustomEvent("changeselectvalue", {
-                detail: { oldValue, newValue: this.headingText }
+                detail: { oldValue, newValue: undefined, oldKey, newKey: undefined }
             }));
+            this.#selectedData = { value: undefined, key: undefined };
         }
     }
     static createHeadingElement({ type = "regular", text = "Menu", classes = [] } = {}) {

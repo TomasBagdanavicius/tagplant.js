@@ -82,15 +82,20 @@ export class Article extends ElementRepresentative {
     }
     static fromSchema(data, { hyperlinkBuilder } = {}) {
         const article = new Article(data.title);
+        if ("message" in data) {
+            const paragraph = createElement("p", { text: data.message });
+            article.insert(paragraph);
+        }
         if ("data" in data) {
             const descriptionList = new DescriptionListPairs;
             for (const [name, info] of Object.entries(data.data)) {
-                descriptionList.appendPair(name, info.value, { name });
+                if ("value" in info) {
+                    descriptionList.appendPair(name, info.value, { name });
+                }
             }
-            article.insert(descriptionList);
-        } else if ("message" in data) {
-            const paragraph = createElement("p", { text: data.message });
-            article.insert(paragraph);
+            if (descriptionList.element.children.length !== 0) {
+                article.insert(descriptionList);
+            }
         }
         if ("navigation" in data) {
             const navigation = Navigation.fromSchema(data.navigation, {

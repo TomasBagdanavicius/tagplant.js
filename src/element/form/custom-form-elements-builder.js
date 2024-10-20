@@ -57,8 +57,8 @@ export class CustomFormElementsBuilder extends FormElementsBuilder {
                 if (userPaths?.stylesheets?.referenceSelect) {
                     stylesheetPath = userPaths.stylesheets.referenceSelect;
                 }
-                attrs.url = config.relationship.other_module_url;
-                attrs["module-title"] = config.relationship.other_module_title;
+                attrs.url = config.relationshipOtherModule;
+                attrs["module-title"] = config.relationshipOtherModuleTitle;
                 break;
         }
         if (stylesheetPath) {

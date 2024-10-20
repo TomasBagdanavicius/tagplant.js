@@ -1,6 +1,7 @@
 "use strict";
 
 import { httpMethods } from "../core/functions/enumeration.js";
+import { consoleDebugColor, validateVarInterface } from "../core/functions/misc.js";
 import { ExpiredAbortError, TimeoutException } from "../core/exceptions.js";
 import { chunkCallbackResponse, progressCallback, parseResponseContent, responseToFile } from "../core/network/functions.js";
 import { CancelablePromiseWithProcess } from "./cancelable-promise-with-process.js";
@@ -21,13 +22,19 @@ export function networkRequest(url, handle, {
     body,
     headers,
 } = {}) {
-    if (!(handle instanceof AbortController) && !(handle instanceof Process)) {
-        throw new TypeError("Parameter #2 must be either an abort controller or process");
-    }
+    validateVarInterface(handle, [AbortController, Process], { paramNumber: 2 });
     return new CancelablePromiseWithProcess(async (resolve, reject, process) => {
-        window.dispatchEvent(new CustomEvent("networkrequest", {
-            detail: { url, process }
+        const detailsPayload = {};
+        window.dispatchEvent(new CustomEvent("beforenetworkrequest", {
+            detail: { url, method, process, payload: detailsPayload }
         }));
+        if (detailsPayload.url) {
+            if (detailsPayload.url instanceof URL) {
+                url = detailsPayload.url;
+            } else {
+                console.warn("Payload URL must be provided as URL instance");
+            }
+        }
         requestOptions.method = method.value;
         requestOptions.signal = process.signal;
         if (body) {
@@ -52,8 +59,12 @@ export function networkRequest(url, handle, {
                 reject(error);
             }
         }
+        window.dispatchEvent(new CustomEvent("networkrequest", {
+            detail: { url, method, process }
+        }));
         // First off, will check whether the request is valid (see: https://developer.mozilla.org/en-US/docs/Web/API/fetch#exceptions applies to Request as well)
         try {
+            consoleDebugColor(`📡 Network request: ${String(url)}`, "skyblue");
             const request = new Request(url, requestOptions);
             try {
                 let response = await fetch(request);

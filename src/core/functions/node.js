@@ -699,6 +699,14 @@ export const onConnectedChange = (() => {
     const map = new Map;
     const prepareObserver = () => {
         if (!observer) {
+            const connect = (info, element) => {
+                info.isConnected = true;
+                element.dispatchEvent(new CustomEvent("connected"));
+            }
+            const disconnect = (info, element) => {
+                info.isConnected = false;
+                element.dispatchEvent(new CustomEvent("disconnected"));
+            }
             observer = new MutationObserver(mutations => {
                 for (const mutation of mutations) {
                     if (mutation.addedNodes.length !== 0) {
@@ -706,8 +714,13 @@ export const onConnectedChange = (() => {
                             if (addedNode.nodeType === Node.ELEMENT_NODE) {
                                 if (map.has(addedNode)) {
                                     const info = map.get(addedNode);
-                                    info.isConnected = true;
-                                    addedNode.dispatchEvent(new CustomEvent("connected"));
+                                    connect(info, addedNode);
+                                } else {
+                                    for (const [element, info] of map.entries()) {
+                                        if (addedNode.contains(element)) {
+                                            connect(info, element);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -717,8 +730,13 @@ export const onConnectedChange = (() => {
                             if (removedNode.nodeType === Node.ELEMENT_NODE) {
                                 if (map.has(removedNode)) {
                                     const info = map.get(removedNode);
-                                    info.isConnected = false;
-                                    removedNode.dispatchEvent(new CustomEvent("disconnected"));
+                                    disconnect(info, removedNode);
+                                } else {
+                                    for (const [element, info] of map.entries()) {
+                                        if (removedNode.contains(element)) {
+                                            disconnect(info, element);
+                                        }
+                                    }
                                 }
                             }
                         }

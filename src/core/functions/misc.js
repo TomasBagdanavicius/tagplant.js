@@ -854,3 +854,13 @@ export const documentClickRegistry = (() => {
         }
     };
 })();
+
+/**
+ * Logs a debug message to the console with the specified text color.
+ *
+ * @param {string} message - The message to be logged in the console.
+ * @param {string} color - The CSS color value to apply to the message (e.g., "red", "#ff0000").
+ */
+export function consoleDebugColor(message, color) {
+    console.debug(`%c${message}`, `color:${color}`);
+}

@@ -67,7 +67,7 @@ export const FormWebComponentMixin = ({
                 this.#valueState = state;
                 if (!isNullish(value)) {
                     this.setAttribute("value", value);
-                } else if (!this.constructor.isValueLocked) {
+                } else if (!this.constructor.isValueAssistive) {
                     this.removeAttribute("value");
                 }
                 if (dispatchValueChangeEvent) {
@@ -119,7 +119,7 @@ export const FormWebComponentMixin = ({
             super.attributeChangedCallback(name, oldValue, newValue);
             switch (name) {
                 case "value":
-                    if (newValue !== oldValue) {
+                    if (newValue !== oldValue && !this.constructor.isValueAssistive) {
                         this.setValue(newValue);
                     }
             }

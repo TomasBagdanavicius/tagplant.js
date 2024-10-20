@@ -1,6 +1,6 @@
 "use strict";
 
-import { removeClasses } from "../core/functions/node.js";
+import { createElement, removeClasses } from "../core/functions/node.js";
 import { adjacencyPositions } from "../core/functions/enumeration.js";
 import { EventListenersController } from "../core/events/event-listeners-controller.js";
 import { Menu } from "../element/menu.js";
@@ -9,6 +9,7 @@ import { Process } from "../process/process.js";
 import { onConcurrentAction } from "../process/jobs.js";
 import { Clock } from "./clock.js";
 import { dateTimeFormats } from "../../var/date-time-formats.js";
+import { WebComponentMixin } from "../core/web-component/web-component-mixin.js";
 
 export const clockFeature = (() => {
     let state;
@@ -327,8 +328,11 @@ export const clockFeature = (() => {
                     if (newState) {
                         enable();
                     } else if (clockPiece) {
-                        clockPiece.stop();
-                        attachmentController.remove();
+                        try {
+                            clockPiece.stop();
+                        } finally {
+                            attachmentController.remove();
+                        }
                     }
                 }
             });
@@ -341,7 +345,63 @@ export const clockFeature = (() => {
                 }
             });
         }
+        releaseWebComponent({ contentFormat = "text" } = {}) {
+            return createElement("clock-feature", {
+                attrs: { "content-format": contentFormat }
+            });
+        }
     }
+    customElements.define("clock-feature", class extends WebComponentMixin() {
+        static observedAttributes = ["content-format"];
+        #attachmentController;
+        constructor() {
+            super();
+        }
+        get contentFormat() {
+            return this.getAttribute("content-format") || "text";
+        }
+        attributeChangedCallback(name, oldValue, newValue) {
+            super.attributeChangedCallback();
+            switch (name) {
+                case "content-format":
+                    if (this.isConnected) {
+                        this.shadowRoot.replaceChildren();
+                        controller.releaseElement(this.#attachmentController, { contentFormat: newValue });
+                    }
+                    break;
+            }
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            if (!this.#attachmentController) {
+                const context = this;
+                this.#attachmentController = {
+                    host: context.shadowRoot,
+                    attach(elem) {
+                        this.host.append(elem);
+                        context.#prepareTimeElement(elem);
+                    },
+                    remove() {
+                        this.host.children[0].remove();
+                    }
+                }
+                controller.releaseElement(this.#attachmentController, { contentFormat: this.contentFormat });
+            } else {
+                if (state) {
+                    this.#attachmentController.clockPiece.start();
+                }
+            }
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            if (this.#attachmentController) {
+                this.#attachmentController.clockPiece.stop();
+            }
+        }
+        #prepareTimeElement(element) {
+            element.setAttribute("part", "time");
+        }
+    });
     broadcasting.addEventListener("message", e => {
         const { action, value } = e.data;
         switch (action) {

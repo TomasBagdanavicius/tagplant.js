@@ -5,7 +5,7 @@ import { searchable, validateVarInterface } from "../functions/misc.js";
 import { validateEnumMember } from "../functions/enumeration.js";
 
 export const StatusesMixin = ({ parentConstructor = EventTarget, statuses, defaultStatus, buildIsMethods = true, privateMethods } = {}) => {
-    return class extends parentConstructor {
+    const Mixin = class extends parentConstructor {
         #status;
         constructor(...args) {
             super(...args);
@@ -76,4 +76,5 @@ export const StatusesMixin = ({ parentConstructor = EventTarget, statuses, defau
             });
         }
     }
+    return Mixin;
 }

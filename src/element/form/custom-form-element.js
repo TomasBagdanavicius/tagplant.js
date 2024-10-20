@@ -36,7 +36,7 @@ export class CustomFormElement extends FormWebComponentMixin({
         super();
         this.addEventListener("valuechange", e => {
             const { newValue } = e.detail;
-            if (newValue !== "") {
+            if (newValue !== "" && !isNullish(newValue)) {
                 this.classList.add("has-value");
             } else {
                 removeClasses(this, ["has-value"]);
@@ -699,7 +699,7 @@ export class CustomFormElement extends FormWebComponentMixin({
         });
     }
     static hasValueStatusChange(target, config, onStatusChange) {
-        if (target.value !== "") {
+        if (target.value !== "" && !isNullish(target.value)) {
             if (!config.active) {
                 onStatusChange(true);
             }

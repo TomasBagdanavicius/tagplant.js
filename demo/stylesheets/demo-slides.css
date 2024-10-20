@@ -319,11 +319,11 @@
     --font-size: 14px;
     --line-height: 1.3571428571;
     --accent-color: #4169e1;
-    --accent-color-active: #214cce;
+    --accent-color-active: rgb(39.9545454545, 85.2272727273, 221.0454545455);
     --danger-color: #f93a37;
-    --danger-color-active: #f60b07;
+    --danger-color-active: rgb(248.1145631068, 28.9281553398, 25.4854368932);
     --success-color: #129745;
-    --success-color-active: #0d6930;
+    --success-color-active: rgb(16.2, 135.9, 62.1);
     --button-height: 40px;
     --button-bg-color: var(--fg-color);
     --button-bg-color-rollover: var(--fg-color-active);

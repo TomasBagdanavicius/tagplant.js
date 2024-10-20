@@ -39,30 +39,6 @@ export function getSiteGenericApiListingOptions() {
     };
 }
 
-/* Functions */
-
-export function schemaToElementRepresentative_(data) {
-    const elementRepresentative = issueHookEvent("beforeschematoelementrepresentative", { data }, "elementRepresentative", ElementRepresentative);
-    if (elementRepresentative) {
-        return elementRepresentative;
-    }
-    switch (data.presentation) {
-        case "form":
-            return Form.from(data, formMap, formElementMap, {
-                hyperlinkBuilder: Site.getHyperlinkBuilder(),
-                formElementBuilder: new CustomFormElementsBuilder,
-            });
-        case "listing":
-            return new ApiListing(data.title, data, {
-                ...getSiteGenericApiListingOptions()
-            });
-        case "article":
-            return Article.fromSchema(data, { hyperlinkBuilder: Site.getHyperlinkBuilder() });
-        default:
-            console.error(`Unrecognized presentation type ${data.presentation}`);
-    }
-}
-
 export function schemaToElementRepresentative(data) {
     let elementRepresentative = issueHookEvent("beforeschematoelementrepresentative", { data }, "elementRepresentative", ElementRepresentative);
     if (elementRepresentative) {
@@ -86,7 +62,7 @@ export function schemaToElementRepresentative(data) {
         default:
             console.error(`Unrecognized presentation type ${data.presentation}`);
     }
-    issueHookEvent("afterschematoelementrepresentative", { elementRepresentative });
+    issueHookEvent("afterschematoelementrepresentative", { elementRepresentative, data });
     return elementRepresentative;
 }
 

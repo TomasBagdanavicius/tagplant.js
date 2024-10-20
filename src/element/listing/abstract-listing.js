@@ -1151,10 +1151,11 @@ export class AbstractListing extends ElementRepresentative {
         controlsMenu?.appendTo(copy.footer);
         return copy;
     }
-    createCopyPopup({ title = "Listing Management" } = {}) {
+    createCopyPopup({ title = "Listing Management", classes } = {}) {
         const copy = this.getManagerCopy();
         const popup = new Popup(copy.element, {
             title,
+            classes,
             onClose: () => {
                 popup.remove();
             }
@@ -1162,10 +1163,10 @@ export class AbstractListing extends ElementRepresentative {
         popup.show();
         return popup;
     }
-    releaseCopyManagerLaunchButton({ title = "Manage Listing", popupTitle } = {}) {
+    releaseCopyManagerLaunchButton({ title = "Manage Listing", popupTitle, classes } = {}) {
         const button = createSimpleButton(title, ["manage-listing-button"]);
         button.addEventListener("click", () => {
-            this.createCopyPopup({ title: popupTitle });
+            this.createCopyPopup({ title: popupTitle, classes });
         });
         return button;
     }

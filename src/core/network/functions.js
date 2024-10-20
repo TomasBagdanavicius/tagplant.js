@@ -1,5 +1,6 @@
 "use strict";
 
+import { validateVarInterface } from "../functions/misc.js";
 import { path } from "../functions/path.js";
 
 export function chunkCallbackResponse(response, callback, info = {}, signal) {
@@ -63,9 +64,7 @@ export function progressCallback(callback) {
 }
 
 export function parseResponseContent(response) {
-    if (!(response instanceof Response)) {
-        throw new TypeError("Parameter #1 is not a response interface");
-    }
+    validateVarInterface(response, Response);
     let contentType;
     let type = "text";
     if (response.headers.has("content-type")) {
@@ -87,9 +86,7 @@ export function parseResponseContent(response) {
 }
 
 export function responseToFile(response, fileName) {
-    if (!(response instanceof Response)) {
-        throw new TypeError("Parameter #1 is not a response interface");
-    }
+    validateVarInterface(response, Response);
     return new Promise((resolve, reject) => {
         response.blob()
             .then(blob => {
@@ -117,8 +114,6 @@ export function standardFilesListFromIterable(files) {
 }
 
 export function standardFilesListFromFileList(fileList) {
-    if (!(fileList instanceof FileList)) {
-        throw new TypeError("Parameter #1 must implement FileList interface");
-    }
+    validateVarInterface(fileList, FileList);
     return standardFilesListFromIterable(Array.from(fileList));
 }

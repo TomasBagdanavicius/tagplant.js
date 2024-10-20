@@ -97,7 +97,6 @@ export const processesCenter = (() => {
                 }
             });
             const controlsMenu = listing.releaseControlsMenu({ includeDeleteSelected: true });
-            controlsMenu.element.classList.add("select-items");
             controlsMenu.appendTo(listing.footer);
             return listing;
         },

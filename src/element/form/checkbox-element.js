@@ -9,8 +9,9 @@ import { userPaths } from "../../../var/paths.js";
 
 export class CheckBoxElement extends FormElementWithInternalFE {
     static observedAttributes = [...super.observedAttributes, "checked"];
+    /* Indicates that the value used by the custom form element is conditional and depends on other factors (e.g., the checked state). Form value will not be set on value change. Also, value attribute will not be removed when value is empty. The component must decide itself when to set form value. */
+    static isValueAssistive = true;
     static #defaultValue = "on";
-    static isValueLocked = true;
     #stateTextEl;
     constructor() {
         super();
@@ -42,7 +43,7 @@ export class CheckBoxElement extends FormElementWithInternalFE {
         super.attributeChangedCallback(name, oldValue, newValue);
         switch (name) {
             case "checked":
-                this.setValue(this.value, this.state);
+                this.setValue(this.value, { state: this.state });
                 if (this.checked) {
                     this.internals.states.add("checked");
                 } else {

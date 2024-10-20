@@ -164,7 +164,7 @@ export const backgroundStyle = (() => {
                 }
             }
         },
-        unsetStyle() {
+        unsetStyle({ resetVar = true } = {}) {
             if (style === "color") {
                 this.unsetBackgroundColor();
             } else if (style === "background") {
@@ -178,7 +178,9 @@ export const backgroundStyle = (() => {
                 removeClasses(activeItem, "active");
                 activeItem.classList.add("clickable");
             }
-            style = undefined;
+            if (resetVar) {
+                style = undefined;
+            }
         },
         async removeStyle() {
             if (style === "color") {
@@ -440,7 +442,7 @@ export const backgroundStyle = (() => {
                 initialSettingProcess.abort();
             }
             broadcastingController.remove();
-            manager.unsetStyle();
+            manager.unsetStyle({ resetVar: false });
             bg = undefined;
             /* Content should not be reset here, because then in `apply`, in case initial setting record was null, content will not be recovered. To overcome this, `initialSetting` would have to be nullified as well. */
         }

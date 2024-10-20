@@ -38,4 +38,4 @@ export const clockFeatureListeners = {
         ]
     }
 }
-const controller = new EventListenersController(clockFeatureListeners, clockFeature, { autoadd: true });
+export const controller = new EventListenersController(clockFeatureListeners, clockFeature, { autoadd: true });

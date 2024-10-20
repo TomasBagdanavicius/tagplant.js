@@ -42,6 +42,6 @@ tag="v$version"
 cd $project_dir
 git add .
 git commit -S -m "$commit_message"
-git push -u origin main
+git push
 git tag -s $tag -m "$tag_message"
 git push origin $tag

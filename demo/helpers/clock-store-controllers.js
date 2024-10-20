@@ -22,11 +22,7 @@ export const clockIndexedDBStoreController = {
     },
     async save(name, value, { signal } = {}) {
         const key = this.getKeyByName(name);
-        try {
-            await landingDatabaseManager.saveValue("settings", key, { value }, { signal });
-            return value;
-        } catch (error) {
-            throw error;
-        }
+        await landingDatabaseManager.saveValue("settings", key, { value }, { signal });
+        return value;
     }
 };
